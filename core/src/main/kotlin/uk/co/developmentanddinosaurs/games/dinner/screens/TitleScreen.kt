@@ -15,7 +15,7 @@ import ktx.scene2d.scene2d
  */
 class TitleScreen(private val stage: Stage, private val game: DinnerGame) : KtxScreen {
     override fun show() {
-        stage.addActor(scene2d.image(Texture("badlogic.jpg")))
+        stage.addActor(scene2d.image(Texture("sprites/background.jpg")))
     }
 
     override fun render(delta: Float) {
