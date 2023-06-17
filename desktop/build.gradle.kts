@@ -7,6 +7,7 @@ dependencies {
     api(libs.gdx.lwjgl3)
     api(libs.gdx.platform) { artifact { classifier = "natives-desktop" } }
     api(libs.gdx.freetype.platform) { artifact { classifier = "natives-desktop" } }
+    implementation(libs.ktx.app)
 }
 
 tasks.register("dist", Jar::class) {
