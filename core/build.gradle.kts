@@ -5,4 +5,5 @@ plugins {
 dependencies {
     api(libs.gdx.core)
     implementation(libs.gdx.freetype.core)
+    implementation(project(":carnivore"))
 }
