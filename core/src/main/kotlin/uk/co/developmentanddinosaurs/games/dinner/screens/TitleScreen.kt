@@ -35,11 +35,24 @@ class TitleScreen(private val stage: Stage, private val game: DinnerGame) : KtxS
             )
         )
     }
+    private val instructions = scene2d.image(Texture("sprites/text/press_start.png")).apply {
+        centerPosition(Gdx.graphics.width.toFloat(), 0f)
+        y = meat.y - this.height
+        addAction(
+            Actions.forever(
+                Actions.sequence(
+                    Actions.fadeOut(1f),
+                    Actions.fadeIn(1f)
+                )
+            )
+        )
+    }
 
     override fun show() {
         stage.addActor(background)
         stage.addActor(title)
         stage.addActor(meat)
+        stage.addActor(instructions)
     }
 
     override fun render(delta: Float) {
