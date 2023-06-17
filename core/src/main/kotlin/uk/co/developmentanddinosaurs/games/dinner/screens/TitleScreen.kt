@@ -49,7 +49,7 @@ class TitleScreen(private val stage: Stage, private val game: DinnerGame) : KtxS
         )
     }
     private val dinoYs = listOf(25f, 75f)
-    private val carnivores = CarnivoreColour.values().mapIndexed { index, colour ->
+    private val carnivores = CarnivoreColour.values().apply { shuffle() }.mapIndexed { index, colour ->
         val spriteColour = colour.name.lowercase()
         val path = "sprites/carnivores/carnivore_$spriteColour.png"
         scene2d.image(Texture(path)) {
