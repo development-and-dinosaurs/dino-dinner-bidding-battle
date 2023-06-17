@@ -5,10 +5,14 @@ import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.utils.ScreenUtils
 
-
+/**
+ * The Game instance for Dino Dinner Democracy.
+ *
+ * This is the entrypoint into the core game logic that is shared between distributions.
+ */
 class DinnerGame : ApplicationAdapter() {
-    var batch: SpriteBatch? = null
-    var img: Texture? = null
+    private var batch: SpriteBatch? = null
+    private var img: Texture? = null
     override fun create() {
         batch = SpriteBatch()
         img = Texture("badlogic.jpg")
@@ -26,4 +30,3 @@ class DinnerGame : ApplicationAdapter() {
         img!!.dispose()
     }
 }
-
