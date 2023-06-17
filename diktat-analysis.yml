@@ -312,7 +312,7 @@
     maxBlockLength: '3'
 # Checks magic number
 - name: MAGIC_NUMBER
-  enabled: true
+  enabled: false
   configuration:
     # Ignore numbers from test
     ignoreTest: "true"
