@@ -62,4 +62,13 @@ interface CraftyCodeCarnivore {
      * @return the colour of your carnivore
      */
     fun colour(): CarnivoreColour
+
+    /**
+     * The hat for your carnivore.
+     *
+     * Pick the [CarnivoreHat] that your CraftyCodeCarnivore will wear in the game.
+     *
+     * @return the hat for your carnivore
+     */
+    fun hat(): CarnivoreHat
 }

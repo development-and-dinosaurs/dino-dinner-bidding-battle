@@ -1,6 +1,7 @@
 package uk.co.developmentanddinosaurs.games.dinner.screens
 
 import uk.co.developmentanddinosaurs.games.dinner.CarnivoreColour
+import uk.co.developmentanddinosaurs.games.dinner.CarnivoreHat
 import uk.co.developmentanddinosaurs.games.dinner.DinnerGame
 
 import com.badlogic.gdx.Gdx
@@ -50,11 +51,18 @@ class TitleScreen(private val stage: Stage, private val game: DinnerGame) : KtxS
     }
     private val dinoYs = listOf(25f, 75f)
     private val carnivores = CarnivoreColour.values().apply { shuffle() }.mapIndexed { index, colour ->
-        val spriteColour = colour.name.lowercase()
-        val path = "sprites/carnivores/carnivore_$spriteColour.png"
+        val path = "sprites/carnivores/carnivore_${colour.name.lowercase()}.png"
         scene2d.image(Texture(path)) {
             this.x = (index * (this.width + 10)) + 100
             this.y = dinoYs[index % 2]
+        }
+    }
+    private val allHats = CarnivoreHat.values().apply { shuffle() }.toMutableList()
+    private val hats = carnivores.map { carnivore ->
+        val path = "sprites/hats/${allHats[0].name.lowercase()}.png"
+        scene2d.image(Texture(path)) {
+            it.x = carnivore.x
+            it.y = carnivore.y + carnivore.height - 40
         }
     }
 
@@ -64,6 +72,7 @@ class TitleScreen(private val stage: Stage, private val game: DinnerGame) : KtxS
         stage.addActor(meat)
         stage.addActor(instructions)
         carnivores.forEach { stage.addActor(it) }
+        hats.forEach { stage.addActor(it) }
     }
 
     override fun render(delta: Float) {
