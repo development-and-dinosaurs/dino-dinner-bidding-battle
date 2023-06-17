@@ -9,6 +9,7 @@ gdx-lwjgl3 = { module = "com.badlogicgames.gdx:gdx-backend-lwjgl3", version.ref 
 gdx-platform = { module = "com.badlogicgames.gdx:gdx-platform", version.ref = "gdx" }
 gdx-freetype-platform = { module = "com.badlogicgames.gdx:gdx-freetype-platform", version.ref = "gdx" }
 
+ktx-actors = { module = "io.github.libktx:ktx-actors", version.ref = "ktx" }
 ktx-app = { module = "io.github.libktx:ktx-app", version.ref = "ktx" }
 ktx-assets = { module = "io.github.libktx:ktx-assets", version.ref = "ktx" }
 ktx-inject = { module = "io.github.libktx:ktx-inject", version.ref = "ktx" }

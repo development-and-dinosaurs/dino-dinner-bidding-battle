@@ -5,6 +5,7 @@ plugins {
 dependencies {
     api(libs.gdx.core)
     implementation(libs.gdx.freetype.core)
+    implementation(libs.ktx.actors)
     implementation(libs.ktx.app)
     implementation(libs.ktx.assets)
     implementation(libs.ktx.inject)
