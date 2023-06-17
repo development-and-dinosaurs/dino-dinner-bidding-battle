@@ -59,7 +59,7 @@ class TitleScreen(private val stage: Stage, private val game: DinnerGame) : KtxS
     }
     private val allHats = CarnivoreHat.values().apply { shuffle() }.toMutableList()
     private val hats = carnivores.map { carnivore ->
-        val path = "sprites/hats/${allHats.random().name.lowercase()}.png"
+        val path = "sprites/hats/${allHats.removeFirst().name.lowercase()}.png"
         scene2d.image(Texture(path)) {
             it.x = carnivore.x
             it.y = carnivore.y + carnivore.height - 40
