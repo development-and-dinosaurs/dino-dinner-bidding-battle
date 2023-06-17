@@ -1,5 +1,6 @@
 package uk.co.developmentanddinosaurs.games.dinner.screens
 
+import uk.co.developmentanddinosaurs.games.dinner.CarnivoreColour
 import uk.co.developmentanddinosaurs.games.dinner.DinnerGame
 
 import com.badlogic.gdx.Gdx
@@ -47,12 +48,22 @@ class TitleScreen(private val stage: Stage, private val game: DinnerGame) : KtxS
             )
         )
     }
+    private val dinoYs = listOf(25f, 75f)
+    private val carnivores = CarnivoreColour.values().mapIndexed { index, colour ->
+        val spriteColour = colour.name.lowercase()
+        val path = "sprites/carnivores/carnivore_$spriteColour.png"
+        scene2d.image(Texture(path)) {
+            this.x = (index * (this.width + 10)) + 100
+            this.y = dinoYs[index % 2]
+        }
+    }
 
     override fun show() {
         stage.addActor(background)
         stage.addActor(title)
         stage.addActor(meat)
         stage.addActor(instructions)
+        carnivores.forEach { stage.addActor(it) }
     }
 
     override fun render(delta: Float) {
