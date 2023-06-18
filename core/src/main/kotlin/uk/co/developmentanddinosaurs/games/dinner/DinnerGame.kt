@@ -1,5 +1,6 @@
 package uk.co.developmentanddinosaurs.games.dinner
 
+import uk.co.developmentanddinosaurs.games.dinner.screens.GameScreen
 import uk.co.developmentanddinosaurs.games.dinner.screens.TitleScreen
 
 import com.badlogic.gdx.Screen
@@ -24,11 +25,13 @@ class DinnerGame : KtxGame<Screen>() {
         context.register {
             bindSingleton<Batch>(SpriteBatch())
             bindSingleton<Viewport>(ScreenViewport())
-            bindSingleton(Stage(inject(), inject()))
+            bind { Stage(inject(), inject()) }
             bindSingleton(this@DinnerGame)
             bindSingleton(TitleScreen(inject(), inject()))
+            bindSingleton(GameScreen(inject(), inject()))
         }
         addScreen(context.inject<TitleScreen>())
+        addScreen(context.inject<GameScreen>())
         setScreen<TitleScreen>()
     }
 

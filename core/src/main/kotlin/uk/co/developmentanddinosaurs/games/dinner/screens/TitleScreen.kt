@@ -6,9 +6,11 @@ import uk.co.developmentanddinosaurs.games.dinner.DinnerGame
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import ktx.actors.centerPosition
+import ktx.actors.onKeyDown
 import ktx.app.KtxScreen
 import ktx.assets.toInternalFile
 import ktx.scene2d.image
@@ -76,6 +78,12 @@ class TitleScreen(private val stage: Stage, private val game: DinnerGame) : KtxS
         carnivores.forEach { stage.addActor(it) }
         hats.forEach { stage.addActor(it) }
         backgroundMusic.play()
+        stage.addActor(Actor().let { actor ->
+            actor.onKeyDown { game.setScreen<GameScreen>() }
+            stage.setKeyboardFocus(actor)
+            actor
+        })
+        Gdx.input.inputProcessor = stage
     }
 
     override fun render(delta: Float) {
