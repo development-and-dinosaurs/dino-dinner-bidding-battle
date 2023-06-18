@@ -16,5 +16,6 @@ fun main() {
     config.setForegroundFPS(60)
     config.setTitle("Dino Dinner Democracy")
     config.setWindowedMode(1600, 900)
+    config.setWindowIcon("sprites/meat.png")
     Lwjgl3Application(DinnerGame(), config)
 }
