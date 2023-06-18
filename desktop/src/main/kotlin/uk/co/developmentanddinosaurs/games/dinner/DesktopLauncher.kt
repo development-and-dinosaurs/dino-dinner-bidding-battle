@@ -15,5 +15,6 @@ fun main() {
     val config = Lwjgl3ApplicationConfiguration()
     config.setForegroundFPS(60)
     config.setTitle("Dino Dinner Democracy")
+    config.setWindowedMode(1600, 900)
     Lwjgl3Application(DinnerGame(), config)
 }

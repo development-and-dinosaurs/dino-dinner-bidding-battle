@@ -53,4 +53,22 @@ interface CraftyCodeCarnivore {
      * @return the amount of meat you want to bid this round
      */
     fun bid(): Int
+
+    /**
+     * The colour of your carnivore.
+     *
+     * Pick the [CarnivoreColour] that will be used to colour your player in the game.
+     *
+     * @return the colour of your carnivore
+     */
+    fun colour(): CarnivoreColour
+
+    /**
+     * The hat for your carnivore.
+     *
+     * Pick the [CarnivoreHat] that your CraftyCodeCarnivore will wear in the game.
+     *
+     * @return the hat for your carnivore
+     */
+    fun hat(): CarnivoreHat
 }
