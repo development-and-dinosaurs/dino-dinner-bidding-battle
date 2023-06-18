@@ -3,6 +3,7 @@ package uk.co.developmentanddinosaurs.games.dinner
 import uk.co.developmentanddinosaurs.games.dinner.screens.GameScreen
 import uk.co.developmentanddinosaurs.games.dinner.screens.TitleScreen
 
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
@@ -10,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.utils.viewport.ScreenViewport
 import com.badlogic.gdx.utils.viewport.Viewport
 import ktx.app.KtxGame
+import ktx.assets.toInternalFile
 import ktx.inject.Context
 import ktx.inject.register
 
@@ -30,6 +32,9 @@ class DinnerGame : KtxGame<Screen>() {
             bindSingleton(TitleScreen(inject(), inject()))
             bindSingleton(GameScreen(inject(), inject()))
         }
+        Gdx.audio.newMusic("sounds/background.mp3".toInternalFile())
+            .apply { setOnCompletionListener { play() } }
+            .play()
         addScreen(context.inject<TitleScreen>())
         addScreen(context.inject<GameScreen>())
         setScreen<TitleScreen>()

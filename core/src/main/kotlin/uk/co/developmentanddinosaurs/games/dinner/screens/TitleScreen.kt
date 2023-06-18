@@ -12,7 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import ktx.actors.centerPosition
 import ktx.actors.onKeyDown
 import ktx.app.KtxScreen
-import ktx.assets.toInternalFile
 import ktx.scene2d.image
 import ktx.scene2d.scene2d
 
@@ -68,7 +67,6 @@ class TitleScreen(private val stage: Stage, private val game: DinnerGame) : KtxS
             it.y = carnivore.y + carnivore.height - 40
         }
     }
-    private val backgroundMusic = Gdx.audio.newMusic("sounds/background.mp3".toInternalFile())
 
     override fun show() {
         stage.addActor(background)
@@ -77,7 +75,6 @@ class TitleScreen(private val stage: Stage, private val game: DinnerGame) : KtxS
         stage.addActor(instructions)
         carnivores.forEach { stage.addActor(it) }
         hats.forEach { stage.addActor(it) }
-        backgroundMusic.play()
         stage.addActor(Actor().let { actor ->
             actor.onKeyDown { game.setScreen<GameScreen>() }
             stage.setKeyboardFocus(actor)
@@ -89,9 +86,5 @@ class TitleScreen(private val stage: Stage, private val game: DinnerGame) : KtxS
     override fun render(delta: Float) {
         stage.act(delta)
         stage.draw()
-    }
-
-    override fun dispose() {
-        backgroundMusic.dispose()
     }
 }
