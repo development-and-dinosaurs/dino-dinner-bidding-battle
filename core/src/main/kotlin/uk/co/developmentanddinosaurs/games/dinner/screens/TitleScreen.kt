@@ -1,19 +1,22 @@
 package uk.co.developmentanddinosaurs.games.dinner.screens
 
-import uk.co.developmentanddinosaurs.games.dinner.CarnivoreColour
-import uk.co.developmentanddinosaurs.games.dinner.CarnivoreHat
-import uk.co.developmentanddinosaurs.games.dinner.DinnerGame
-
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Stage
-import com.badlogic.gdx.scenes.scene2d.actions.Actions
+import com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeIn
+import com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeOut
+import com.badlogic.gdx.scenes.scene2d.actions.Actions.rotateBy
 import ktx.actors.centerPosition
 import ktx.actors.onKeyDown
+import ktx.actors.repeatForever
+import ktx.actors.then
 import ktx.app.KtxScreen
 import ktx.scene2d.image
 import ktx.scene2d.scene2d
+import uk.co.developmentanddinosaurs.games.dinner.CarnivoreColour
+import uk.co.developmentanddinosaurs.games.dinner.CarnivoreHat
+import uk.co.developmentanddinosaurs.games.dinner.DinnerGame
 
 /**
  * The title screen.
@@ -30,26 +33,12 @@ class TitleScreen(private val stage: Stage, private val game: DinnerGame) : KtxS
         setSize(256f, 256f)
         centerPosition(Gdx.graphics.width.toFloat(), 0f)
         y = title.y - this.height
-        addAction(
-            Actions.forever(
-                Actions.sequence(
-                    Actions.rotateBy(16f, 0.5f),
-                    Actions.rotateBy(-16f, 0.5f)
-                )
-            )
-        )
+        addAction(rotateBy(16f, 0.5f).then(rotateBy(-16f, 0.5f)).repeatForever())
     }
     private val instructions = scene2d.image(Texture("sprites/text/press_start.png")).apply {
         centerPosition(Gdx.graphics.width.toFloat(), 0f)
         y = meat.y - this.height
-        addAction(
-            Actions.forever(
-                Actions.sequence(
-                    Actions.fadeOut(1f),
-                    Actions.fadeIn(1f)
-                )
-            )
-        )
+        addAction(fadeOut(1f).then(fadeIn(1f)).repeatForever())
     }
     private val dinoYs = listOf(25f, 75f)
     private val carnivores = CarnivoreColour.values().apply { shuffle() }.mapIndexed { index, colour ->
