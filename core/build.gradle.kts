@@ -8,7 +8,9 @@ dependencies {
     implementation(libs.ktx.actors)
     implementation(libs.ktx.app)
     implementation(libs.ktx.assets)
+    implementation(libs.ktx.freetype)
     implementation(libs.ktx.inject)
     implementation(libs.ktx.scene2d)
+    implementation(libs.ktx.style)
     implementation(project(":carnivore"))
 }
