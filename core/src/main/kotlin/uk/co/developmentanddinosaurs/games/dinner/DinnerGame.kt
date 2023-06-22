@@ -1,5 +1,6 @@
 package uk.co.developmentanddinosaurs.games.dinner
 
+import uk.co.developmentanddinosaurs.games.dinner.carnivore.CarnivoreLoader
 import uk.co.developmentanddinosaurs.games.dinner.logic.MummyTrex
 import uk.co.developmentanddinosaurs.games.dinner.screens.GameScreen
 import uk.co.developmentanddinosaurs.games.dinner.screens.TitleScreen
@@ -24,6 +25,8 @@ import ktx.style.get
 import ktx.style.label
 import ktx.style.skin
 
+import java.io.File
+
 /**
  * The Game instance for Dino Dinner Democracy.
  *
@@ -41,8 +44,9 @@ class DinnerGame : KtxGame<Screen>() {
             bind { MummyTrex() }
             bindSingleton<Skin>(createSkin())
             Scene2DSkin.defaultSkin = context.inject<Skin>()
+            bindSingleton<CarnivoreLoader>(CarnivoreLoader(File(Gdx.files.localStoragePath)))
             bindSingleton(TitleScreen(inject(), inject()))
-            bindSingleton(GameScreen(inject(), inject(), inject()))
+            bindSingleton(GameScreen(inject(), inject(), inject(), inject()))
         }
         Gdx.audio.newMusic("sounds/background.mp3".toInternalFile())
             .apply { setOnCompletionListener { play() } }

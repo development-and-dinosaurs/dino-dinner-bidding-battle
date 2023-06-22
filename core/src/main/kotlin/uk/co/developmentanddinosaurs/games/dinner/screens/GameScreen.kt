@@ -1,6 +1,7 @@
 package uk.co.developmentanddinosaurs.games.dinner.screens
 
 import uk.co.developmentanddinosaurs.games.dinner.DinnerGame
+import uk.co.developmentanddinosaurs.games.dinner.carnivore.CarnivoreLoader
 import uk.co.developmentanddinosaurs.games.dinner.logic.MummyTrex
 
 import com.badlogic.gdx.Gdx
@@ -19,7 +20,8 @@ import ktx.scene2d.scene2d
 class GameScreen(
     private val stage: Stage,
     private val game: DinnerGame,
-    mummyTrex: MummyTrex
+    mummyTrex: MummyTrex,
+    carnivoreLoader: CarnivoreLoader
 ) : KtxScreen {
     private val background = scene2d.image(Texture("sprites/background.jpg"))
     private val meat = scene2d.image(Texture("sprites/meat.png")).apply {
@@ -31,11 +33,30 @@ class GameScreen(
         x = meat.x + (meat.width / 2) - (this.width / 2)
         y = meat.y + (meat.height / 2) - (this.height / 2) - 50
     }
+    private val dinoYs = listOf(25f, 75f)
+    private val codeCarnivores = carnivoreLoader.loadCarnivores()
+    private val carnivores = codeCarnivores.mapIndexed { index, carnivore ->
+        val path = "sprites/carnivores/carnivore_${carnivore.colour().name.lowercase()}.png"
+        scene2d.image(Texture(path)) {
+            this.x = (index * (this.width + 10)) + 100
+            this.y = dinoYs[index % 2]
+        }
+    }
+    private val hats = codeCarnivores.mapIndexed { index, carnivore ->
+        val path = "sprites/hats/${carnivore.hat().name.lowercase()}.png"
+        val carnivoreImage = carnivores[index]
+        scene2d.image(Texture(path)) {
+            it.x = carnivoreImage.x
+            it.y = carnivoreImage.y + carnivoreImage.height - 40
+        }
+    }
 
     override fun show() {
         stage.addActor(background)
         stage.addActor(meat)
         stage.addActor(meatLabel)
+        carnivores.forEach { stage.addActor(it) }
+        hats.forEach { stage.addActor(it) }
     }
 
     override fun render(delta: Float) {
