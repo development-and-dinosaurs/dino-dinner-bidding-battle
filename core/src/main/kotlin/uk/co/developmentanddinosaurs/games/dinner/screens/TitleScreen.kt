@@ -1,5 +1,9 @@
 package uk.co.developmentanddinosaurs.games.dinner.screens
 
+import uk.co.developmentanddinosaurs.games.dinner.CarnivoreColour
+import uk.co.developmentanddinosaurs.games.dinner.CarnivoreHat
+import uk.co.developmentanddinosaurs.games.dinner.DinnerGame
+
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.scenes.scene2d.Actor
@@ -14,9 +18,6 @@ import ktx.actors.then
 import ktx.app.KtxScreen
 import ktx.scene2d.image
 import ktx.scene2d.scene2d
-import uk.co.developmentanddinosaurs.games.dinner.CarnivoreColour
-import uk.co.developmentanddinosaurs.games.dinner.CarnivoreHat
-import uk.co.developmentanddinosaurs.games.dinner.DinnerGame
 
 /**
  * The title screen.
