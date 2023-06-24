@@ -1,6 +1,7 @@
 [versions]
 gdx = "1.11.0"
 ktx = "1.11.0-rc6"
+coroutines = "1.7.1"
 
 [libraries]
 gdx-core = { module = "com.badlogicgames.gdx:gdx", version.ref = "gdx" }
@@ -12,7 +13,10 @@ gdx-freetype-platform = { module = "com.badlogicgames.gdx:gdx-freetype-platform"
 ktx-actors = { module = "io.github.libktx:ktx-actors", version.ref = "ktx" }
 ktx-app = { module = "io.github.libktx:ktx-app", version.ref = "ktx" }
 ktx-assets = { module = "io.github.libktx:ktx-assets", version.ref = "ktx" }
+ktx-async = { module = "io.github.libktx:ktx-async", version.ref = "ktx" }
 ktx-freetype = { module = "io.github.libktx:ktx-freetype", version.ref = "ktx" }
 ktx-inject = { module = "io.github.libktx:ktx-inject", version.ref = "ktx" }
 ktx-scene2d = { module = "io.github.libktx:ktx-scene2d", version.ref = "ktx" }
 ktx-style = { module = "io.github.libktx:ktx-style", version.ref = "ktx" }
+
+kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
