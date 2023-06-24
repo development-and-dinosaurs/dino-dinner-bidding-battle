@@ -17,6 +17,15 @@ import java.util.jar.JarFile
  * This should return the first implementation of a [CraftyCodeCarnivore] that it finds per jar.
  */
 class CarnivoreLoader(private val directory: File) {
+    private val fairCarnivores = listOf(
+        FairCarnivore(),
+        FairCarnivore(),
+        FairCarnivore(),
+        FairCarnivore(),
+        FairCarnivore(),
+        FairCarnivore()
+    )
+
     /**
      * Loads the [CraftyCodeCarnivore] classes from the expected directory.
      *
@@ -25,7 +34,7 @@ class CarnivoreLoader(private val directory: File) {
     fun loadCarnivores(): List<CraftyCodeCarnivore> {
         val carnivoreJars = File(directory, "carnivores").listFiles(FileFilter { it.extension == "jar" })
         if (carnivoreJars == null || carnivoreJars.isEmpty()) {
-            return listOf(FairCarnivore())
+            return fairCarnivores
         }
         return carnivoreJars.map { jar ->
             val urls = arrayOf(URL("jar:file:${jar.path}!/"))
