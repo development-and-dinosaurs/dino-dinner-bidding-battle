@@ -25,8 +25,11 @@ class FairCarnivore : CraftyCodeCarnivore {
         meatRemaining -= meatEaten
     }
 
-    override fun bid(): Int =
+    override fun bid(): Int = if (playersRemaining == 1) {
+        meatRemaining
+    } else {
         random.nextInt(meatRemaining / (playersRemaining + 1) until meatRemaining / (playersRemaining - 1))
+    }
 
     override fun colour(): CarnivoreColour = colours.removeFirst()
 
