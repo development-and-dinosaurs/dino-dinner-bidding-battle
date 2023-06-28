@@ -1,12 +1,17 @@
 package uk.co.developmentanddinosaurs.games.dinner.screens
 
 import uk.co.developmentanddinosaurs.games.dinner.DinnerGame
+import uk.co.developmentanddinosaurs.games.dinner.carnivore.CarnivoreActor
 import uk.co.developmentanddinosaurs.games.dinner.carnivore.CarnivoreLoader
 import uk.co.developmentanddinosaurs.games.dinner.logic.MummyTrex
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.actions.Actions
+import ktx.actors.onKeyDown
+import ktx.actors.then
 import ktx.app.KtxScreen
 import ktx.scene2d.image
 import ktx.scene2d.label
@@ -20,7 +25,7 @@ import ktx.scene2d.scene2d
 class GameScreen(
     private val stage: Stage,
     private val game: DinnerGame,
-    mummyTrex: MummyTrex,
+    private val mummyTrex: MummyTrex,
     carnivoreLoader: CarnivoreLoader
 ) : KtxScreen {
     private val background = scene2d.image(Texture("sprites/background.jpg"))
@@ -34,33 +39,73 @@ class GameScreen(
         y = meat.y + (meat.height / 2) - (this.height / 2) - 50
     }
     private val dinoYs = listOf(25f, 75f)
-    private val codeCarnivores = carnivoreLoader.loadCarnivores()
-    private val carnivores = codeCarnivores.mapIndexed { index, carnivore ->
-        val path = "sprites/carnivores/carnivore_${carnivore.colour().name.lowercase()}.png"
-        scene2d.image(Texture(path)) {
+    private val codeCarnivores = carnivoreLoader.loadCarnivores().toMutableList()
+    private val carnivoreActors = codeCarnivores.mapIndexed { index, carnivore ->
+        val image = scene2d.image(Texture("sprites/carnivores/carnivore_${carnivore.colour().name.lowercase()}.png")) {
             this.x = (index * (this.width + 10)) + 100
             this.y = dinoYs[index % 2]
         }
-    }
-    private val hats = codeCarnivores.mapIndexed { index, carnivore ->
-        val path = "sprites/hats/${carnivore.hat().name.lowercase()}.png"
-        val carnivoreImage = carnivores[index]
-        scene2d.image(Texture(path)) {
-            it.x = carnivoreImage.x
-            it.y = carnivoreImage.y + carnivoreImage.height - 40
+        val hat = scene2d.image(Texture("sprites/hats/${carnivore.hat().name.lowercase()}.png")) {
+            it.x = image.x
+            it.y = image.y + image.height - 40
         }
-    }
+        val scroll = scene2d.image(Texture("sprites/scroll.png")) {
+            it.x = image.x
+            it.y = -150f
+        }
+        val label = scene2d.label("1234", style = "scroll") {
+            setAlignment(1)
+            it.x = scroll.x
+            it.y = -150f
+            it.width = scroll.width
+            it.height = scroll.height
+        }
+        val miniMeat = scene2d.image(Texture("sprites/meat.png")) {
+            setSize(128f, 128f)
+            it.x = image.x
+            it.y = Gdx.graphics.height + it.height
+        }
+        CarnivoreActor(carnivore, image, hat, scroll, label, miniMeat)
+    }.toMutableList()
+    private var canPlayRound = true
 
     override fun show() {
         stage.addActor(background)
         stage.addActor(meat)
         stage.addActor(meatLabel)
-        carnivores.forEach { stage.addActor(it) }
-        hats.forEach { stage.addActor(it) }
+        carnivoreActors.forEach { it.addToStage(stage) }
+        stage.addActor(Actor().let { actor ->
+            actor.onKeyDown { playRound() }
+            stage.setKeyboardFocus(actor)
+            actor
+        })
+        codeCarnivores.forEach { it.initialise(codeCarnivores.size, mummyTrex.bringHomeTheBacon()) }
+        Gdx.input.inputProcessor = stage
     }
 
     override fun render(delta: Float) {
         stage.act(delta)
         stage.draw()
+    }
+
+    private fun playRound() {
+        if (!canPlayRound) {
+            return
+        }
+        canPlayRound = false
+        val bids = carnivoreActors.map { it.bid() }
+        val showActions = carnivoreActors.map { it.showBid() }
+        val winningBid = bids.min()
+        carnivoreActors.removeAt(bids.indexOf(winningBid))
+        val hideActions = carnivoreActors.map { it.hideBid() }
+        stage.addAction(
+            Actions.parallel(*showActions.toTypedArray())
+                .then(Actions.run { meatLabel.setText("${mummyTrex.bringHomeTheBacon()}\nkg") })
+                .then(Actions.delay(3f))
+                .then(Actions.parallel(*hideActions.toTypedArray()))
+                .then(Actions.run { canPlayRound = true })
+        )
+        carnivoreActors.forEach { it.update(winningBid) }
+        mummyTrex.updateMeat(winningBid)
     }
 }
