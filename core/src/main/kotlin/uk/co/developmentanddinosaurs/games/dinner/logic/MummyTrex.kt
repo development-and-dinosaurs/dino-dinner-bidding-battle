@@ -9,12 +9,21 @@ import kotlin.random.nextInt
  * [MummyTrex] is the overseer of the game and is the main logic driver behind the game implementation.
  */
 class MummyTrex {
-    private val amountOfMeat = Random.nextInt(1000..2000)
+    private var amountOfMeat = Random.nextInt(1000..2000)
 
     /**
-     * Returns the amount of meat that is left to be bid on
+     * Returns the amount of meat that is left to be bid on.
      *
      * @return the amount of meat remaining to be bid on
      */
     fun bringHomeTheBacon(): Int = amountOfMeat
+
+    /**
+     * Updates the amount of meat that is left to be bid on.
+     *
+     * @param meatEaten the amount of meat that has been eaten this round
+     */
+    fun updateMeat(meatEaten: Int) {
+        amountOfMeat -= meatEaten
+    }
 }
