@@ -100,9 +100,9 @@ class GameScreen(
         val hideActions = carnivoreActors.map { it.hideBid() }
         stage.addAction(
             Actions.parallel(*showActions.toTypedArray())
-                .then(Actions.run { meatLabel.setText("${mummyTrex.bringHomeTheBacon()}\nkg") })
                 .then(Actions.delay(3f))
                 .then(Actions.parallel(*hideActions.toTypedArray()))
+                .then(Actions.run { meatLabel.setText("${mummyTrex.bringHomeTheBacon()}\nkg") })
                 .then(Actions.run { canPlayRound = true })
         )
         carnivoreActors.forEach { it.update(winningBid) }
