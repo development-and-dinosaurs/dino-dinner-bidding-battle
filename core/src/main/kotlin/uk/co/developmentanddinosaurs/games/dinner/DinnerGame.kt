@@ -62,8 +62,16 @@ class DinnerGame : KtxGame<Screen>() {
             borderWidth = 3f
             borderColor = Color.BLACK
         })
+        add("scrollFont", FreeTypeFontGenerator("fonts/Dinopia.otf".toInternalFile()).generateFont {
+            size = 36
+            borderWidth = 3f
+            borderColor = Color.BLACK
+        })
         label {
             font = skin["defaultFont"]
+        }
+        label("scroll") {
+            font = skin["scrollFont"]
         }
     }
 
