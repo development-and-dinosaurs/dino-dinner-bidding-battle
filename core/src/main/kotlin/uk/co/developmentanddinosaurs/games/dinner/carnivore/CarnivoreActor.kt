@@ -25,75 +25,75 @@ class CarnivoreActor(
     private val label: Label,
     private val miniMeat: Image,
 ) : Actor() {
-    private var bid by Delegates.notNull<Int>()
+  private var bid by Delegates.notNull<Int>()
 
-    /** Whether the actor is currently active in the scene */
-    var isActive = true
+  /** Whether the actor is currently active in the scene */
+  var isActive = true
 
-    /**
-     * Add carnivore actors to the stage.
-     *
-     * @param stage the stage to add actors to
-     */
-    fun addToStage(stage: Stage) {
-        stage.addActor(image)
-        stage.addActor(hat)
-        stage.addActor(scroll)
-        stage.addActor(label)
-        stage.addActor(miniMeat)
-    }
+  /**
+   * Add carnivore actors to the stage.
+   *
+   * @param stage the stage to add actors to
+   */
+  fun addToStage(stage: Stage) {
+    stage.addActor(image)
+    stage.addActor(hat)
+    stage.addActor(scroll)
+    stage.addActor(label)
+    stage.addActor(miniMeat)
+  }
 
-    /** Have all carnivore actors act */
-    override fun act(delta: Float) {
-        image.act(delta)
-        hat.act(delta)
-        scroll.act(delta)
-        label.act(delta)
-        miniMeat.act(delta)
-        super.act(delta)
-    }
+  /** Have all carnivore actors act */
+  override fun act(delta: Float) {
+    image.act(delta)
+    hat.act(delta)
+    scroll.act(delta)
+    label.act(delta)
+    miniMeat.act(delta)
+    super.act(delta)
+  }
 
-    /**
-     * Return the bid amount from the code carnivore
-     *
-     * @return the bid amount for the meat
-     */
-    fun bid(): Int {
-        bid = codeCarnivore.bid()
-        return bid
-    }
+  /**
+   * Return the bid amount from the code carnivore
+   *
+   * @return the bid amount for the meat
+   */
+  fun bid(): Int {
+    bid = codeCarnivore.bid()
+    return bid
+  }
 
-    /**
-     * Update the code carnivore with the amount of meat eaten.
-     *
-     * @param meatEaten the amount of meat eaten this round
-     */
-    fun update(meatEaten: Int) {
-        codeCarnivore.update(meatEaten)
-    }
+  /**
+   * Update the code carnivore with the amount of meat eaten.
+   *
+   * @param meatEaten the amount of meat eaten this round
+   */
+  fun update(meatEaten: Int) {
+    codeCarnivore.update(meatEaten)
+  }
 
-    /**
-     * Animate the bid actors to show the carnivore bid
-     *
-     * @return the action to animate the bid actors
-     */
-    fun showBid(): Action =
-        Actions.run {
+  /**
+   * Animate the bid actors to show the carnivore bid
+   *
+   * @return the action to animate the bid actors
+   */
+  fun showBid(): Action =
+      Actions.run {
             label.setText(bid.toString())
             scroll.addAction(moveTo(image.x, image.y, 1f))
             label.addAction(moveTo(image.x, image.y, 1f))
-        }
-            .then(delay(1f))
+          }
+          .then(delay(1f))
 
-    /**
-     * Animate the bid actors to hide the carnivore bid
-     *
-     * @return the action to hide the bid actors
-     */
-    fun hideBid(): Action =
-        Actions.run {
+  /**
+   * Animate the bid actors to hide the carnivore bid
+   *
+   * @return the action to hide the bid actors
+   */
+  fun hideBid(): Action =
+      Actions.run {
             scroll.addAction(moveTo(image.x, -150f, 1f))
             label.addAction(moveTo(image.x, -150f, 1f))
-        }
-            .then(delay(1f))
+          }
+          .then(delay(1f))
 }
