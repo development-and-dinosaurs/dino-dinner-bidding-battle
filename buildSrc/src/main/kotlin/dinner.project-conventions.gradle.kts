@@ -14,6 +14,6 @@ dependencies {
 }
 
 spotless {
-    kotlin { ktlint() }
-    kotlinGradle { ktlint() }
+    kotlin { diktat() }
+    kotlinGradle { diktat() }
 }
