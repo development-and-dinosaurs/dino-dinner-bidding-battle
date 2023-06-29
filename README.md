@@ -1,1 +1,1 @@
-# dino-dinner-democracy
+# Dino Dinner Democracy
