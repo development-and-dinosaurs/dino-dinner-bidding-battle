@@ -1,6 +1,4 @@
-plugins {
-    id("dinner.project-conventions")
-}
+plugins { id("dinner.project-conventions") }
 
 dependencies {
     api(libs.gdx.core)
