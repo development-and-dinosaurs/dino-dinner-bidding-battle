@@ -22,6 +22,7 @@ jobs:
         uses: burrunan/gradle-cache-action@v1
         with:
           arguments: publishToSonatype closeSonatypeStagingRepository --stacktrace
+        concurrent: true
         env:
           ORG_GRADLE_PROJECT_signingKeyBase64: ${{ secrets.signing_key_base64 }}
           ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.signing_password }}
