@@ -8,11 +8,10 @@ dependencies {
   implementation(libs.ktx.app)
 }
 
-tasks.register("dist", Jar::class) {
+tasks.jar {
   duplicatesStrategy = DuplicatesStrategy.EXCLUDE
   manifest {
     attributes["Main-Class"] = "uk.co.developmentanddinosaurs.games.dinner.DesktopLauncherKt"
   }
   from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
-  with(tasks.jar.get())
 }
