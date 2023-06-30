@@ -1,0 +1,29 @@
+name: PR Build
+
+on:
+  push:
+    branches: [ "publish" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🛒 Checkout code
+        uses: actions/checkout@v3
+
+      - name: ☕ Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+
+      - name: 🐘 Run Gradle Publish
+        uses: burrunan/gradle-cache-action@v1
+        with:
+          arguments: publishToSonatype closeSonatypeStagingRepository
+        env:
+          ORG_GRADLE_PROJECT_signingKey: ${{ secrets.signing_key }}
+          ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.signing_password }}
+          ORG_GRADLE_PROJECT_sonatypeUsername: ${{ secrets.sonatype_username }}
+          ORG_GRADLE_PROJECT_sonatypePassword: ${{ secrets.sonatype_password }}
