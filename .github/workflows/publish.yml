@@ -23,7 +23,7 @@ jobs:
         with:
           arguments: publishToSonatype closeSonatypeStagingRepository --stacktrace
         env:
-          ORG_GRADLE_PROJECT_signingKey: ${{ secrets.signing_key }}
+          ORG_GRADLE_PROJECT_signingKeyBase64: ${{ secrets.signing_key_base64 }}
           ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.signing_password }}
           ORG_GRADLE_PROJECT_sonatypeUsername: ${{ secrets.sonatype_username }}
           ORG_GRADLE_PROJECT_sonatypePassword: ${{ secrets.sonatype_password }}

@@ -55,10 +55,10 @@ publishing {
 
 
 signing {
-    val signingKey: String? by project
-    val decodedSigningKey = decode(signingKey)
+    val signingKeyBase64: String? by project
+    val signingKey = decode(signingKeyBase64)
     val signingPassword: String? by project
-    useInMemoryPgpKeys(decodedSigningKey, signingPassword)
+    useInMemoryPgpKeys(signingKey, signingPassword)
     sign(publishing.publications["mavenJava"])
 }
 
