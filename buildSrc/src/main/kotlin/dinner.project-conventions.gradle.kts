@@ -1,3 +1,5 @@
+import java.util.Base64
+
 plugins {
     id("com.diffplug.spotless")
     id("org.jetbrains.kotlin.jvm")
@@ -53,7 +55,8 @@ publishing {
 
 
 signing {
-    val signingKey: String? by project
+    val signingKeyBase64: String? by project
+    val signingKey = String(Base64.getDecoder().decode(signingKeyBase64))
     val signingPassword: String? by project
     useInMemoryPgpKeys(signingKey, signingPassword)
     sign(publishing.publications["mavenJava"])
