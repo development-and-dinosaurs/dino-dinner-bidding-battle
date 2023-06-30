@@ -55,11 +55,15 @@ publishing {
 
 
 signing {
-    val signingKeyBase64: String? by project
-    val signingKey = String(Base64.getDecoder().decode(signingKeyBase64))
+    val signingKey: String? by project
+    val decodedSigningKey = decode(signingKey)
     val signingPassword: String? by project
-    useInMemoryPgpKeys(signingKey, signingPassword)
+    useInMemoryPgpKeys(decodedSigningKey, signingPassword)
     sign(publishing.publications["mavenJava"])
+}
+
+fun decode(base64Key: String?): String {
+    return if (base64Key == null) "" else String(Base64.getDecoder().decode(base64Key))
 }
 
 spotless {
