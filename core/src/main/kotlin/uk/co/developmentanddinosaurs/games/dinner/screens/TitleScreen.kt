@@ -10,6 +10,7 @@ import ktx.actors.onClick
 import ktx.actors.repeatForever
 import ktx.actors.then
 import ktx.app.KtxScreen
+import ktx.assets.toInternalFile
 import ktx.scene2d.image
 import ktx.scene2d.label
 import ktx.scene2d.scene2d
@@ -25,6 +26,9 @@ import uk.co.developmentanddinosaurs.games.dinner.DinnerGame
  */
 class TitleScreen(private val stage: Stage, private val game: DinnerGame) : KtxScreen {
   private val background = scene2d.image(Texture("sprites/background.jpg"))
+  private val music = Gdx.audio.newMusic("sounds/title.mp3".toInternalFile()).apply {
+    setOnCompletionListener { play() }
+  }
   private val title =
       scene2d.label("Dino Dinner: Bidding Battle", style = "title") {
         centerPosition(Gdx.graphics.width.toFloat(), 0f)
@@ -78,6 +82,7 @@ class TitleScreen(private val stage: Stage, private val game: DinnerGame) : KtxS
       }
 
   override fun show() {
+    music.play()
     stage.addActor(background)
     stage.addActor(title)
     stage.addActor(meat)
@@ -89,8 +94,16 @@ class TitleScreen(private val stage: Stage, private val game: DinnerGame) : KtxS
     Gdx.input.inputProcessor = stage
   }
 
+  override fun hide() {
+    music.stop()
+  }
+
   override fun render(delta: Float) {
     stage.act(delta)
     stage.draw()
+  }
+
+  override fun dispose() {
+    music.dispose()
   }
 }
