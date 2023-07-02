@@ -10,6 +10,7 @@ import ktx.actors.centerPosition
 import ktx.actors.onClick
 import ktx.actors.onKeyDown
 import ktx.app.KtxScreen
+import ktx.assets.toInternalFile
 import ktx.scene2d.image
 import ktx.scene2d.label
 import ktx.scene2d.scene2d
@@ -23,7 +24,9 @@ import uk.co.developmentanddinosaurs.games.dinner.DinnerGame
  */
 class InstructionsScreen(private val stage: Stage, private val game: DinnerGame) : KtxScreen {
   private val background = scene2d.image(Texture("sprites/background.jpg"))
-
+  private val music = Gdx.audio.newMusic("sounds/instructions.mp3".toInternalFile()).apply {
+    setOnCompletionListener { play() }
+  }
   private val pageOneHeader = "Dino Dinner: Bidding Battle"
   private val pageOneInstructions =
       listOf(
@@ -179,6 +182,7 @@ class InstructionsScreen(private val stage: Stage, private val game: DinnerGame)
   private var currentPage = 0
 
   override fun show() {
+    music.play()
     stage.addActor(background)
     headers.forEach { stage.addActor(it) }
     pages.flatten().forEach { stage.addActor(it) }
@@ -205,9 +209,17 @@ class InstructionsScreen(private val stage: Stage, private val game: DinnerGame)
     showPage(0)
   }
 
+  override fun hide() {
+    music.stop()
+  }
+
   override fun render(delta: Float) {
     stage.act(delta)
     stage.draw()
+  }
+
+  override fun dispose() {
+    music.dispose()
   }
 
   private fun showPage(page: Int) {
