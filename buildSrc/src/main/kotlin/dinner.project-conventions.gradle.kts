@@ -6,7 +6,7 @@ plugins {
     `maven-publish`
     signing
 }
-group = "uk.co.developmentanddinosaurs"
+group = "uk.co.developmentanddinosaurs.games.dinner"
 
 version = "0.0.1"
 
