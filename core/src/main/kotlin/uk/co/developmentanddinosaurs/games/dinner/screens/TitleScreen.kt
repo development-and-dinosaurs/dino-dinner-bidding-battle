@@ -11,6 +11,7 @@ import ktx.actors.repeatForever
 import ktx.actors.then
 import ktx.app.KtxScreen
 import ktx.scene2d.image
+import ktx.scene2d.label
 import ktx.scene2d.scene2d
 import ktx.scene2d.textButton
 import uk.co.developmentanddinosaurs.games.dinner.CarnivoreColour
@@ -25,15 +26,15 @@ import uk.co.developmentanddinosaurs.games.dinner.DinnerGame
 class TitleScreen(private val stage: Stage, private val game: DinnerGame) : KtxScreen {
   private val background = scene2d.image(Texture("sprites/background.jpg"))
   private val title =
-      scene2d.image(Texture("sprites/text/title.png")).apply {
+      scene2d.label("Dino Dinner: Bidding Battle", style = "title") {
         centerPosition(Gdx.graphics.width.toFloat(), 0f)
-        y = Gdx.graphics.height - this.height - 25
+        y = Gdx.graphics.height - this.height - 10
       }
   private val meat =
       scene2d.image(Texture("sprites/meat.png")).apply {
         setSize(256f, 256f)
         centerPosition(Gdx.graphics.width.toFloat(), 0f)
-        y = title.y - this.height
+        y = title.y - this.height - 20
         addAction(rotateBy(16f, 0.5f).then(rotateBy(-16f, 0.5f)).repeatForever())
       }
   private val playButton =
