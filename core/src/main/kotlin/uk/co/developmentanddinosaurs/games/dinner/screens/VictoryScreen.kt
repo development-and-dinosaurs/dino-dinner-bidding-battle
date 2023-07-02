@@ -71,11 +71,12 @@ class VictoryScreen(
   }
 
   private fun getWinner(): Image {
-    return scene2d.image(Texture("sprites/carnivores/carnivore_${mummyTrex.winner.colour()}.png")) {
-      centerPosition(Gdx.graphics.width.toFloat(), 0f)
-      y = 100f
-      addAction(moveBy(0f, 100f, 0.5f).then(moveBy(0f, -100f, 0.5f)).repeatForever())
-    }
+    return scene2d.image(
+        Texture("sprites/carnivores/carnivore_${mummyTrex.winner.colour().name.lowercase()}.png")) {
+          centerPosition(Gdx.graphics.width.toFloat(), 0f)
+          y = 100f
+          addAction(moveBy(0f, 100f, 0.5f).then(moveBy(0f, -100f, 0.5f)).repeatForever())
+        }
   }
 
   private fun getHat(winner: Image): Image {
