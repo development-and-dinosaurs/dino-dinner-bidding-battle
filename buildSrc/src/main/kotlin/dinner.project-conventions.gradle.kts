@@ -23,10 +23,6 @@ java {
     withJavadocJar()
 }
 
-tasks.withType(Jar::class) {
-    archiveBaseName.set(project.rootProject.name + "-" + project.name)
-}
-
 publishing {
     publications {
         create<MavenPublication>("mavenJava") {
