@@ -12,6 +12,7 @@ import ktx.actors.centerPosition
 import ktx.actors.repeatForever
 import ktx.actors.then
 import ktx.app.KtxScreen
+import ktx.assets.toInternalFile
 import ktx.scene2d.image
 import ktx.scene2d.scene2d
 import uk.co.developmentanddinosaurs.games.dinner.DinnerGame
@@ -28,15 +29,27 @@ class VictoryScreen(
     private val mummyTrex: MummyTrex,
 ) : KtxScreen {
   private val background = scene2d.image(Texture("sprites/background.jpg"))
+  private val music = Gdx.audio.newMusic("sounds/victory.mp3".toInternalFile()).apply {
+    setOnCompletionListener { play() }
+  }
   private val meats = listOf(spawnMeat(0), spawnMeat(1), spawnMeat(2), spawnMeat(3), spawnMeat(4))
 
   override fun show() {
+    music.play()
     stage.addActor(background)
     val winner = getWinner()
     stage.addActor(winner)
     stage.addActor(getHat(winner))
     meats.forEach { stage.addActor(it) }
     Gdx.input.inputProcessor = stage
+  }
+
+  override fun hide() {
+    music.stop()
+  }
+
+  override fun dispose() {
+    music.dispose()
   }
 
   override fun render(delta: Float) {
