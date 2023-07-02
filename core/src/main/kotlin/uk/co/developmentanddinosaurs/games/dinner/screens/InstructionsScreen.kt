@@ -147,6 +147,12 @@ class InstructionsScreen(private val stage: Stage, private val game: DinnerGame)
           currentPage -= 1
         }
       }
+  private val playButton =
+    scene2d.textButton("Play") {
+      centerPosition(Gdx.graphics.width.toFloat(), 0f)
+      y = 10f
+      onClick { game.setScreen<GameScreen>() }
+    }
 
   private var currentPage = 0
 
@@ -156,6 +162,7 @@ class InstructionsScreen(private val stage: Stage, private val game: DinnerGame)
     pages.flatten().forEach { stage.addActor(it) }
     stage.addActor(nextButton)
     stage.addActor(previousButton)
+    stage.addActor(playButton)
     stage.addActor(
         Actor().let { actor ->
           actor.onKeyDown {
