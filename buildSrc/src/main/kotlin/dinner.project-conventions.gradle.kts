@@ -26,6 +26,7 @@ java {
 publishing {
     publications {
         create<MavenPublication>("mavenJava") {
+            println("Create for ${project.name}")
             from(components["java"])
             pom {
                 name.set("Dino Dinner: Bidding Battle")
