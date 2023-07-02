@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import ktx.actors.onKeyDown
 import ktx.actors.then
 import ktx.app.KtxScreen
+import ktx.assets.toInternalFile
 import ktx.scene2d.image
 import ktx.scene2d.label
 import ktx.scene2d.scene2d
@@ -29,6 +30,9 @@ class GameScreen(
     carnivoreLoader: CarnivoreLoader,
 ) : KtxScreen {
   private val background = scene2d.image(Texture("sprites/background.jpg"))
+  private val music = Gdx.audio.newMusic("sounds/game.mp3".toInternalFile()).apply {
+    setOnCompletionListener { play() }
+  }
   private val meat =
       scene2d.image(Texture("sprites/meat.png")).apply {
         x = (Gdx.graphics.width - this.width) / 2
@@ -82,6 +86,7 @@ class GameScreen(
   private var canPlayRound = true
 
   override fun show() {
+    music.play()
     stage.addActor(background)
     stage.addActor(meat)
     stage.addActor(meatLabel)
@@ -95,6 +100,14 @@ class GameScreen(
     )
     codeCarnivores.forEach { it.initialise(codeCarnivores.size, mummyTrex.bringHomeTheBacon()) }
     Gdx.input.inputProcessor = stage
+  }
+
+  override fun hide() {
+    music.stop()
+  }
+
+  override fun dispose() {
+    music.dispose()
   }
 
   override fun render(delta: Float) {
