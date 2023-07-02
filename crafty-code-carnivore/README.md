@@ -1,4 +1,4 @@
-# Dino Dinner Democracy - Crafty Code Carnivore
+# Dino Dinner: Bidding Battle - Crafty Code Carnivore
 
 So you've read the information in the main [README](../README.md), and suffice to say, you're interested, right?
 

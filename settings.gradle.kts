@@ -1,1 +1,1 @@
-include("core", "desktop", "carnivore")
+include("core", "desktop", "crafty-code-carnivore")

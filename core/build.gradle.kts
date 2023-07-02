@@ -12,5 +12,5 @@ dependencies {
   implementation(libs.ktx.scene2d)
   implementation(libs.ktx.style)
   implementation(libs.kotlinx.coroutines)
-  implementation(project(":carnivore"))
+  implementation(project(":crafty-code-carnivore"))
 }

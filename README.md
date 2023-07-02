@@ -1,12 +1,12 @@
-# Dino Dinner Democracy
+# Dino Dinner: Bidding Battle
 
-Welcome to "Dino Dinner Democracy", a thrilling coding challenge where crafty carnivores running ancient algorithms compete in a progressive elimination auction to maximise their meat. Strategise your bids to secure the most meat while avoiding elimination, and prove your algorithm's prowess in this intense battle for carnivorous supremacy!
+Welcome to "Dino Dinner: Bidding Battle", a thrilling coding challenge where crafty code carnivores running ancient algorithms compete in a progressive elimination auction to maximise their meat. Strategise your bids to secure the most meat while avoiding elimination, and prove your algorithm's prowess in this intense battle for carnivorous supremacy!
 
 ## Objective
 The objective of the game is to maximize the amount of meat that your crafty carnivore receives throughout the rounds by strategically bidding against other participants.
 
 ## Game Setup
-Up to ten participants can take part in the game simultaneously. Each participant should submit their algorithm's jar file before the game starts. You will be provided with a distributed library containing the interface that your algorithm must work with. This library can be found on Maven Central, under `uk.co.developmentanddinosaurs:dino-dinner-democracy-carnivore:<version>`.
+Up to ten participants can take part in the game simultaneously. Each participant should submit their algorithm's jar file before the game starts. You will be provided with a distributed library containing the interface that your algorithm must work with. This library can be found on Maven Central, under `uk.co.developmentanddinosaurs:dino-dinner-bidding-battle-carnivore:<version>`.
 
 ## Creating Your Carnivore
 Once you've got the carnivore library set up, you can work on creating your crafty carnivore. You can get the full instructions on the README for the carnivore project, so check those out when you're ready. 

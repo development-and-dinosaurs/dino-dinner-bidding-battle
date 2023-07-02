@@ -29,7 +29,7 @@ import uk.co.developmentanddinosaurs.games.dinner.screens.TitleScreen
 import uk.co.developmentanddinosaurs.games.dinner.screens.VictoryScreen
 
 /**
- * The Game instance for Dino Dinner Democracy.
+ * The Game instance for Dino Dinner: Bidding Battle.
  *
  * This is the entrypoint into the core game logic that is shared between distributions.
  */
@@ -72,6 +72,14 @@ class DinnerGame : KtxGame<Screen>() {
         },
     )
     add(
+        "titleFont",
+        FreeTypeFontGenerator("fonts/Dinopia.otf".toInternalFile()).generateFont {
+          size = 102
+          borderWidth = 3f
+          borderColor = Color.BLACK
+        },
+    )
+    add(
         "scrollFont",
         FreeTypeFontGenerator("fonts/Dinopia.otf".toInternalFile()).generateFont {
           size = 36
@@ -80,6 +88,7 @@ class DinnerGame : KtxGame<Screen>() {
         },
     )
     label { font = skin["defaultFont"] }
+    label("title") { font = skin["titleFont"] }
     label("scroll") { font = skin["scrollFont"] }
     textButton {
       font = skin["defaultFont"]

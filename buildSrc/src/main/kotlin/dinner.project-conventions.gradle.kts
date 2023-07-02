@@ -32,9 +32,9 @@ publishing {
         create<MavenPublication>("mavenJava") {
             from(components["java"])
             pom {
-                name.set("Dino Dinner Democracy")
-                description.set("Code challenge game from Development and Dinosaurs.")
-                url.set("https://github.com/development-and-dinosaurs/dino-dinner-democracy")
+                name.set("Dino Dinner: Bidding Battle")
+                description.set("Dino Dinner code challenge game from Development and Dinosaurs.")
+                url.set("https://github.com/development-and-dinosaurs/dino-dinner-bidding-battle")
                 licenses {
                     license {
                         name.set("The MIT License (MIT)")
@@ -48,9 +48,9 @@ publishing {
                     }
                 }
                 scm {
-                    connection.set("scm:git:https://github.com/development-and-dinosaurs/dino-dinner-democracy.git")
-                    developerConnection.set("scm:git@github.com:development-and-dinosaurs/dino-dinner-democracy.git")
-                    url.set("https://github.com/development-and-dinosaurs/dino-dinner-democracy/")
+                    connection.set("scm:git:https://github.com/development-and-dinosaurs/dino-dinner-bidding-battle.git")
+                    developerConnection.set("scm:git@github.com:development-and-dinosaurs/dino-dinner-bidding-battle.git")
+                    url.set("https://github.com/development-and-dinosaurs/dino-dinner-bidding-battle/")
                 }
             }
         }
