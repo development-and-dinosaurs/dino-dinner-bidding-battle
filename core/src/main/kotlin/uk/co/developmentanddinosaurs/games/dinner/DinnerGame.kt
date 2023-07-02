@@ -51,10 +51,6 @@ class DinnerGame : KtxGame<Screen>() {
       bindSingleton(GameScreen(inject(), inject(), inject(), inject()))
       bindSingleton(VictoryScreen(inject(), inject(), inject()))
     }
-    Gdx.audio.newMusic("sounds/background.mp3".toInternalFile()).apply {
-      setOnCompletionListener { play() }
-    }
-    // .play()
     addScreen(context.inject<TitleScreen>())
     addScreen(context.inject<InstructionsScreen>())
     addScreen(context.inject<GameScreen>())
