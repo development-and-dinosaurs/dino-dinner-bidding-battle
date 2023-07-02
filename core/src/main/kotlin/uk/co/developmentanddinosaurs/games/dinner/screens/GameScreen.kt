@@ -30,9 +30,10 @@ class GameScreen(
     carnivoreLoader: CarnivoreLoader,
 ) : KtxScreen {
   private val background = scene2d.image(Texture("sprites/background.jpg"))
-  private val music = Gdx.audio.newMusic("sounds/game.mp3".toInternalFile()).apply {
-    setOnCompletionListener { play() }
-  }
+  private val music =
+      Gdx.audio.newMusic("sounds/game.mp3".toInternalFile()).apply {
+        setOnCompletionListener { play() }
+      }
   private val meat =
       scene2d.image(Texture("sprites/meat.png")).apply {
         x = (Gdx.graphics.width - this.width) / 2

@@ -26,9 +26,10 @@ import uk.co.developmentanddinosaurs.games.dinner.DinnerGame
  */
 class TitleScreen(private val stage: Stage, private val game: DinnerGame) : KtxScreen {
   private val background = scene2d.image(Texture("sprites/background.jpg"))
-  private val music = Gdx.audio.newMusic("sounds/title.mp3".toInternalFile()).apply {
-    setOnCompletionListener { play() }
-  }
+  private val music =
+      Gdx.audio.newMusic("sounds/title.mp3".toInternalFile()).apply {
+        setOnCompletionListener { play() }
+      }
   private val title =
       scene2d.label("Dino Dinner: Bidding Battle", style = "title") {
         centerPosition(Gdx.graphics.width.toFloat(), 0f)
