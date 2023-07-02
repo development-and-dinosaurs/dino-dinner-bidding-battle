@@ -59,7 +59,7 @@ class DinnerGame : KtxGame<Screen>() {
     addScreen(context.inject<InstructionsScreen>())
     addScreen(context.inject<GameScreen>())
     addScreen(context.inject<VictoryScreen>())
-    setScreen<InstructionsScreen>()
+    setScreen<TitleScreen>()
   }
 
   private fun createSkin(): Skin = skin { skin ->
