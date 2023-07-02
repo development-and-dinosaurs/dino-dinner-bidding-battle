@@ -1,7 +1,7 @@
 plugins { id("dinner.project-conventions") }
 
 dependencies {
-  implementation(project(":core"))
+  implementation(project(":dino-dinner-bidding-battle-core"))
   api(libs.gdx.lwjgl3)
   api(libs.gdx.platform) { artifact { classifier = "natives-desktop" } }
   api(libs.gdx.freetype.platform) { artifact { classifier = "natives-desktop" } }
