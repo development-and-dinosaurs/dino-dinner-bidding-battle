@@ -20,9 +20,11 @@ import ktx.scene2d.Scene2DSkin
 import ktx.style.get
 import ktx.style.label
 import ktx.style.skin
+import ktx.style.textButton
 import uk.co.developmentanddinosaurs.games.dinner.carnivore.CarnivoreLoader
 import uk.co.developmentanddinosaurs.games.dinner.logic.MummyTrex
 import uk.co.developmentanddinosaurs.games.dinner.screens.GameScreen
+import uk.co.developmentanddinosaurs.games.dinner.screens.InstructionsScreen
 import uk.co.developmentanddinosaurs.games.dinner.screens.TitleScreen
 import uk.co.developmentanddinosaurs.games.dinner.screens.VictoryScreen
 
@@ -45,6 +47,7 @@ class DinnerGame : KtxGame<Screen>() {
       Scene2DSkin.defaultSkin = context.inject<Skin>()
       bindSingleton<CarnivoreLoader>(CarnivoreLoader(File(Gdx.files.localStoragePath)))
       bindSingleton(TitleScreen(inject(), inject()))
+      bindSingleton(InstructionsScreen(inject(), inject()))
       bindSingleton(GameScreen(inject(), inject(), inject(), inject()))
       bindSingleton(VictoryScreen(inject(), inject(), inject()))
     }
@@ -53,6 +56,7 @@ class DinnerGame : KtxGame<Screen>() {
     }
     // .play()
     addScreen(context.inject<TitleScreen>())
+    addScreen(context.inject<InstructionsScreen>())
     addScreen(context.inject<GameScreen>())
     addScreen(context.inject<VictoryScreen>())
     setScreen<TitleScreen>()
@@ -77,6 +81,11 @@ class DinnerGame : KtxGame<Screen>() {
     )
     label { font = skin["defaultFont"] }
     label("scroll") { font = skin["scrollFont"] }
+    textButton {
+      font = skin["defaultFont"]
+      overFontColor = Color.ORANGE
+      downFontColor = Color.CORAL
+    }
   }
 
   override fun dispose() {
