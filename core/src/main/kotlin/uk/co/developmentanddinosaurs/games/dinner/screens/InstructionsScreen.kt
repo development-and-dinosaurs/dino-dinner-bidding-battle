@@ -24,9 +24,10 @@ import uk.co.developmentanddinosaurs.games.dinner.DinnerGame
  */
 class InstructionsScreen(private val stage: Stage, private val game: DinnerGame) : KtxScreen {
   private val background = scene2d.image(Texture("sprites/background.jpg"))
-  private val music = Gdx.audio.newMusic("sounds/instructions.mp3".toInternalFile()).apply {
-    setOnCompletionListener { play() }
-  }
+  private val music =
+      Gdx.audio.newMusic("sounds/instructions.mp3".toInternalFile()).apply {
+        setOnCompletionListener { play() }
+      }
   private val pageOneHeader = "Dino Dinner: Bidding Battle"
   private val pageOneInstructions =
       listOf(
