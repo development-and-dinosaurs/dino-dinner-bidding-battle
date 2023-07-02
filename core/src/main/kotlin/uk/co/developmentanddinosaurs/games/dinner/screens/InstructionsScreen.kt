@@ -24,10 +24,10 @@ import uk.co.developmentanddinosaurs.games.dinner.DinnerGame
 class InstructionsScreen(private val stage: Stage, private val game: DinnerGame) : KtxScreen {
   private val background = scene2d.image(Texture("sprites/background.jpg"))
 
-  private val pageOneHeader = "Dino Dinner Democracy"
+  private val pageOneHeader = "Dino Dinner: Bidding Battle"
   private val pageOneInstructions =
       listOf(
-          "Welcome to \"Dino Dinner Democracy\", a thrilling coding challenge",
+          "Welcome to \"Dino Dinner: Bidding Battle\", a thrilling coding challenge",
           "where crafty carnivores running ancient algorithms compete in a",
           "progressive elimination auction to maximise their meat.",
           "",
