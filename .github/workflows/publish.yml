@@ -2,7 +2,7 @@ name: Publish
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "more-fixes" ]
 
 jobs:
   publish:
@@ -23,7 +23,7 @@ jobs:
       - name: 🐘 Run Gradle Publish
         uses: burrunan/gradle-cache-action@v1
         with:
-          arguments: publishToSonatype closeAndReleaseSonatypeStagingRepository
+          arguments: publishToSonatype closeSonatypeStagingRepository
           concurrent: true
         env:
           ORG_GRADLE_PROJECT_signingKeyBase64: ${{ secrets.signing_key_base64 }}
