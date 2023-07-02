@@ -1,9 +1,9 @@
 package uk.co.developmentanddinosaurs.games.dinner
 
 /**
- * The interface for the bot player in Dino Dinner Democracy.
+ * The interface for the bot player in Dino Dinner: Bidding Battle.
  *
- * This interface provides the functions required to take part in Dino Dinner Democracy. These
+ * This interface provides the functions required to take part in Dino Dinner: Bidding Battle. These
  * functions must be implemented to take part in the game.
  */
 interface CraftyCodeCarnivore {
