@@ -1,12 +1,18 @@
 package uk.co.developmentanddinosaurs.games.dinner.assets
 
 import com.badlogic.gdx.assets.AssetManager
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.graphics.g2d.BitmapFont
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter
 import ktx.assets.load
+import ktx.assets.toInternalFile
 
 class Assets(private val assetManager: AssetManager) {
 
   val sprites = Sprites()
+  val fonts = Fonts()
 
   fun finishLoading() {
     assetManager.finishLoading()
@@ -47,6 +53,25 @@ class Assets(private val assetManager: AssetManager) {
 
     operator fun get(name: String): Texture {
       return sprites[name]?.asset ?: throw NoSuchElementException("Could not find texture [$name]")
+    }
+  }
+
+  inner class Fonts {
+    private val fontParameters =
+        FreeTypeFontParameter().apply {
+          borderWidth = 3f
+          borderColor = Color.BLACK
+        }
+    private val fontGenerator = FreeTypeFontGenerator("fonts/Dinopia.otf".toInternalFile())
+    private val fonts =
+        mapOf(
+            "defaultFont" to fontGenerator.generateFont(fontParameters.apply { size = 72 }),
+            "titleFont" to fontGenerator.generateFont(fontParameters.apply { size = 102 }),
+            "scrollFont" to fontGenerator.generateFont(fontParameters.apply { size = 36 }),
+        )
+
+    operator fun get(name: String): BitmapFont {
+      return fonts[name] ?: throw NoSuchElementException("Could not find font [$name]")
     }
   }
 }

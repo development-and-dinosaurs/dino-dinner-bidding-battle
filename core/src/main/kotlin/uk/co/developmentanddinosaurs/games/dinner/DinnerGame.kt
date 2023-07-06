@@ -6,15 +6,12 @@ import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.utils.viewport.ScreenViewport
 import com.badlogic.gdx.utils.viewport.Viewport
 import java.io.File
 import ktx.app.KtxGame
-import ktx.assets.toInternalFile
-import ktx.freetype.generateFont
 import ktx.inject.Context
 import ktx.inject.register
 import ktx.scene2d.Scene2DSkin
@@ -62,31 +59,10 @@ class DinnerGame : KtxGame<Screen>() {
     setScreen<TitleScreen>()
   }
 
-  private fun createSkin(): Skin = skin { skin ->
-    add(
-        "defaultFont",
-        FreeTypeFontGenerator("fonts/Dinopia.otf".toInternalFile()).generateFont {
-          size = 72
-          borderWidth = 3f
-          borderColor = Color.BLACK
-        },
-    )
-    add(
-        "titleFont",
-        FreeTypeFontGenerator("fonts/Dinopia.otf".toInternalFile()).generateFont {
-          size = 102
-          borderWidth = 3f
-          borderColor = Color.BLACK
-        },
-    )
-    add(
-        "scrollFont",
-        FreeTypeFontGenerator("fonts/Dinopia.otf".toInternalFile()).generateFont {
-          size = 36
-          borderWidth = 3f
-          borderColor = Color.BLACK
-        },
-    )
+  private fun createSkin(assets: Assets): Skin = skin { skin ->
+    add("defaultFont", assets.fonts["defaultFont"])
+    add("titleFont", assets.fonts["titleFont"])
+    add("scrollFont", assets.fonts["scrollFont"])
     label { font = skin["defaultFont"] }
     label("title") { font = skin["titleFont"] }
     label("scroll") { font = skin["scrollFont"] }
