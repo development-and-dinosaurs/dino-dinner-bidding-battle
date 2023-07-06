@@ -31,10 +31,7 @@ class GameScreen(
     assets: Assets,
 ) : KtxScreen {
   private val background = scene2d.image(assets.sprites["background"])
-  private val music =
-      Gdx.audio.newMusic("sounds/game.mp3".toInternalFile()).apply {
-        setOnCompletionListener { play() }
-      }
+  private val music = assets.music["game"]
   private val meat =
       scene2d.image(assets.sprites["meat"]).apply {
         x = (Gdx.graphics.width - this.width) / 2

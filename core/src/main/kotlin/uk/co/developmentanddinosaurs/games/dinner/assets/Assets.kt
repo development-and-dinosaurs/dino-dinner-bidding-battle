@@ -1,5 +1,6 @@
 package uk.co.developmentanddinosaurs.games.dinner.assets
 
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
@@ -13,6 +14,7 @@ class Assets(private val assetManager: AssetManager) {
 
   val sprites = Sprites()
   val fonts = Fonts()
+  val music = Music()
 
   fun finishLoading() {
     assetManager.finishLoading()
@@ -72,6 +74,32 @@ class Assets(private val assetManager: AssetManager) {
 
     operator fun get(name: String): BitmapFont {
       return fonts[name] ?: throw NoSuchElementException("Could not find font [$name]")
+    }
+  }
+
+  inner class Music {
+    private val music =
+        mapOf(
+            "title" to
+                Gdx.audio.newMusic("sounds/title.mp3".toInternalFile()).apply {
+                  setOnCompletionListener { play() }
+                },
+            "instructions" to
+                Gdx.audio.newMusic("sounds/instructions.mp3".toInternalFile()).apply {
+                  setOnCompletionListener { play() }
+                },
+            "game" to
+                Gdx.audio.newMusic("sounds/game.mp3".toInternalFile()).apply {
+                  setOnCompletionListener { play() }
+                },
+            "victory" to
+                Gdx.audio.newMusic("sounds/victory.mp3".toInternalFile()).apply {
+                  setOnCompletionListener { play() }
+                },
+        )
+
+    operator fun get(name: String): com.badlogic.gdx.audio.Music {
+      return music[name] ?: throw NoSuchElementException("Could not find music [$name]")
     }
   }
 }

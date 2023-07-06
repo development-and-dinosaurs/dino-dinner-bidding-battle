@@ -28,10 +28,7 @@ class InstructionsScreen(
     assets: Assets,
 ) : KtxScreen {
   private val background = scene2d.image(assets.sprites["background"])
-  private val music =
-      Gdx.audio.newMusic("sounds/instructions.mp3".toInternalFile()).apply {
-        setOnCompletionListener { play() }
-      }
+  private val music = assets.music["instructions"]
   private val pageOneHeader = "Dino Dinner: Bidding Battle"
   private val pageOneInstructions =
       listOf(

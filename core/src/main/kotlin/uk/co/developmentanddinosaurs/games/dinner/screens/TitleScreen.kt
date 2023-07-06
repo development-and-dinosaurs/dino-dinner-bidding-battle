@@ -3,6 +3,7 @@ package uk.co.developmentanddinosaurs.games.dinner.screens
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.actions.Actions.rotateBy
+import kotlin.system.exitProcess
 import ktx.actors.centerPosition
 import ktx.actors.onClick
 import ktx.actors.repeatForever
@@ -17,7 +18,6 @@ import uk.co.developmentanddinosaurs.games.dinner.CarnivoreColour
 import uk.co.developmentanddinosaurs.games.dinner.CarnivoreHat
 import uk.co.developmentanddinosaurs.games.dinner.DinnerGame
 import uk.co.developmentanddinosaurs.games.dinner.assets.Assets
-import kotlin.system.exitProcess
 
 /**
  * The title screen.
@@ -30,10 +30,7 @@ class TitleScreen(
     assets: Assets,
 ) : KtxScreen {
   private val background = scene2d.image(assets.sprites["background"])
-  private val music =
-      Gdx.audio.newMusic("sounds/title.mp3".toInternalFile()).apply {
-        setOnCompletionListener { play() }
-      }
+  private val music = assets.music["title"]
   private val title =
       scene2d.label("Dino Dinner: Bidding Battle", style = "title") {
         centerPosition(Gdx.graphics.width.toFloat(), 0f)

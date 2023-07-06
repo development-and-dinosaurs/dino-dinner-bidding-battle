@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.actions.Actions.moveBy
 import com.badlogic.gdx.scenes.scene2d.actions.Actions.rotateBy
 import com.badlogic.gdx.scenes.scene2d.ui.Image
+import kotlin.random.Random
 import ktx.actors.centerPosition
 import ktx.actors.repeatForever
 import ktx.actors.then
@@ -16,7 +17,6 @@ import ktx.scene2d.scene2d
 import uk.co.developmentanddinosaurs.games.dinner.DinnerGame
 import uk.co.developmentanddinosaurs.games.dinner.assets.Assets
 import uk.co.developmentanddinosaurs.games.dinner.logic.MummyTrex
-import kotlin.random.Random
 
 /**
  * The victory screen.
@@ -30,10 +30,7 @@ class VictoryScreen(
     private val assets: Assets,
 ) : KtxScreen {
   private val background = scene2d.image(assets.sprites["background"])
-  private val music =
-      Gdx.audio.newMusic("sounds/victory.mp3".toInternalFile()).apply {
-        setOnCompletionListener { play() }
-      }
+  private val music = assets.music["victory"]
   private val meats = listOf(spawnMeat(0), spawnMeat(1), spawnMeat(2), spawnMeat(3), spawnMeat(4))
 
   override fun show() {
