@@ -2,6 +2,7 @@ package uk.co.developmentanddinosaurs.games.dinner
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Screen
+import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
@@ -21,6 +22,7 @@ import ktx.style.get
 import ktx.style.label
 import ktx.style.skin
 import ktx.style.textButton
+import uk.co.developmentanddinosaurs.games.dinner.assets.Assets
 import uk.co.developmentanddinosaurs.games.dinner.carnivore.CarnivoreLoader
 import uk.co.developmentanddinosaurs.games.dinner.logic.MummyTrex
 import uk.co.developmentanddinosaurs.games.dinner.screens.GameScreen
@@ -43,13 +45,15 @@ class DinnerGame : KtxGame<Screen>() {
       bind { Stage(inject(), inject()) }
       bindSingleton(this@DinnerGame)
       bindSingleton(MummyTrex())
-      bindSingleton<Skin>(createSkin())
+      bindSingleton(Assets(AssetManager()))
+      inject<Assets>().finishLoading()
+      bindSingleton<Skin>(createSkin(inject()))
       Scene2DSkin.defaultSkin = context.inject<Skin>()
       bindSingleton<CarnivoreLoader>(CarnivoreLoader(File(Gdx.files.localStoragePath)))
-      bindSingleton(TitleScreen(inject(), inject()))
-      bindSingleton(InstructionsScreen(inject(), inject()))
-      bindSingleton(GameScreen(inject(), inject(), inject(), inject()))
-      bindSingleton(VictoryScreen(inject(), inject(), inject()))
+      bindSingleton(TitleScreen(inject(), inject(), inject()))
+      bindSingleton(InstructionsScreen(inject(), inject(), inject()))
+      bindSingleton(GameScreen(inject(), inject(), inject(), inject(), inject()))
+      bindSingleton(VictoryScreen(inject(), inject(), inject(), inject()))
     }
     addScreen(context.inject<TitleScreen>())
     addScreen(context.inject<InstructionsScreen>())
