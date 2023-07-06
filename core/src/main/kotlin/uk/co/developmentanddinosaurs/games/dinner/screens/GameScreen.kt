@@ -7,7 +7,6 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import ktx.actors.onKeyDown
 import ktx.actors.then
 import ktx.app.KtxScreen
-import ktx.assets.toInternalFile
 import ktx.scene2d.image
 import ktx.scene2d.label
 import ktx.scene2d.scene2d

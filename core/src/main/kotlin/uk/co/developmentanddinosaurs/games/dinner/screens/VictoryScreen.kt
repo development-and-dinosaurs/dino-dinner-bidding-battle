@@ -11,7 +11,6 @@ import ktx.actors.centerPosition
 import ktx.actors.repeatForever
 import ktx.actors.then
 import ktx.app.KtxScreen
-import ktx.assets.toInternalFile
 import ktx.scene2d.image
 import ktx.scene2d.scene2d
 import uk.co.developmentanddinosaurs.games.dinner.DinnerGame

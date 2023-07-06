@@ -9,7 +9,6 @@ import ktx.actors.onClick
 import ktx.actors.repeatForever
 import ktx.actors.then
 import ktx.app.KtxScreen
-import ktx.assets.toInternalFile
 import ktx.scene2d.image
 import ktx.scene2d.label
 import ktx.scene2d.scene2d
