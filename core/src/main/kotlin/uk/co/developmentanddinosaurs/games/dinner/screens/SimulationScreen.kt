@@ -1,5 +1,6 @@
 package uk.co.developmentanddinosaurs.games.dinner.screens
 
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.scenes.scene2d.Stage
 import ktx.app.KtxScreen
 import ktx.scene2d.image
@@ -62,6 +63,7 @@ class SimulationScreen(
     music.play()
     stage.addActor(background)
     carnivoreActors.forEach { it.addToStage(stage) }
+    Gdx.input.inputProcessor = stage
   }
 
   override fun hide() {
@@ -73,11 +75,13 @@ class SimulationScreen(
   }
 
   override fun render(delta: Float) {
-    if (gamesPlayed < 10000) {
-      gamesPlayed += 1
-      val winner = playGame()
-      val winningActor = carnivoreActors[codeCarnivores.indexOf(winner)]
-      winningActor.wonGame()
+    if (gamesPlayed < 100000) {
+      for (i: Int in 1..20) {
+        gamesPlayed += 1
+        val winner = playGame()
+        val winningActor = carnivoreActors[codeCarnivores.indexOf(winner)]
+        winningActor.wonGame()
+      }
     } else {
       mummyTrex.winner = carnivoreActors.maxBy { it.wins }.codeCarnivore
       game.setScreen<VictoryScreen>()
