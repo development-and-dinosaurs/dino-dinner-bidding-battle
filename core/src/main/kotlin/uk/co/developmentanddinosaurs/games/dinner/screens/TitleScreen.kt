@@ -43,11 +43,17 @@ class TitleScreen(
         addAction(rotateBy(16f, 0.5f).then(rotateBy(-16f, 0.5f)).repeatForever())
       }
   private val playButton =
-      scene2d.textButton("Play") {
-        x = 50f
-        y = 175f
-        onClick { game.setScreen<GameScreen>() }
-      }
+    scene2d.textButton("Play") {
+      x = 50f
+      y = 250f
+      onClick { game.setScreen<GameScreen>() }
+    }
+  private val simulationButton =
+    scene2d.textButton("Simulation") {
+      x = 50f
+      y = 175f
+      onClick { game.setScreen<SimulationScreen>() }
+    }
   private val instructionsButton =
       scene2d.textButton("Instructions") {
         x = 50f
@@ -86,6 +92,7 @@ class TitleScreen(
     stage.addActor(title)
     stage.addActor(meat)
     stage.addActor(playButton)
+    stage.addActor(simulationButton)
     stage.addActor(instructionsButton)
     stage.addActor(quitButton)
     carnivores.forEach { stage.addActor(it) }
