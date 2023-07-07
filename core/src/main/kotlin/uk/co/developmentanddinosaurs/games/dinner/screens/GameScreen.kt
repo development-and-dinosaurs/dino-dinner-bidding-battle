@@ -14,7 +14,6 @@ import uk.co.developmentanddinosaurs.games.dinner.CraftyCodeCarnivore
 import uk.co.developmentanddinosaurs.games.dinner.DinnerGame
 import uk.co.developmentanddinosaurs.games.dinner.assets.Assets
 import uk.co.developmentanddinosaurs.games.dinner.carnivore.CarnivoreActor
-import uk.co.developmentanddinosaurs.games.dinner.carnivore.CarnivoreLoader
 import uk.co.developmentanddinosaurs.games.dinner.logic.MummyTrex
 
 /**
