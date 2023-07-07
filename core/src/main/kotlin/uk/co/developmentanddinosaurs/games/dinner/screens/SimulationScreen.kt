@@ -79,6 +79,7 @@ class SimulationScreen(
       val winningActor = carnivoreActors[codeCarnivores.indexOf(winner)]
       winningActor.wonGame()
     } else {
+      mummyTrex.winner = carnivoreActors.maxBy { it.wins }.codeCarnivore
       game.setScreen<VictoryScreen>()
     }
     stage.act(delta)

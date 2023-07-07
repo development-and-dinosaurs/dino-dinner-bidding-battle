@@ -26,8 +26,7 @@ class CarnivoreActor(
 ) : Actor() {
   private var bid by Delegates.notNull<Int>()
 
-  /** Whether the actor is currently active in the scene */
-  var isActive = true
+  var wins = 0
 
   /**
    * Add carnivore actors to the stage.
@@ -95,6 +94,7 @@ class CarnivoreActor(
           .then(delay(1f))
 
   fun wonGame() {
-    this.label.setText((this.label.text.toString().toInt() + 1).toString())
+    wins += 1
+    this.label.setText(wins.toString())
   }
 }
