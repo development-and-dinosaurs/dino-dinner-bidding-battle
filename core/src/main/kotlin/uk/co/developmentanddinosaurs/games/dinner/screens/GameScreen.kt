@@ -70,13 +70,7 @@ class GameScreen(
                   it.width = scroll.width
                   it.height = scroll.height
                 }
-            val miniMeat =
-                scene2d.image(assets.sprites["meat"]) {
-                  setSize(128f, 128f)
-                  it.x = image.x
-                  it.y = Gdx.graphics.height + it.height
-                }
-            CarnivoreActor(carnivore, image, hat, scroll, label, miniMeat)
+            CarnivoreActor(carnivore, image, hat, scroll, label)
           }
           .toMutableList()
   private var canPlayRound = true
