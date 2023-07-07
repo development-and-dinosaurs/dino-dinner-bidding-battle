@@ -27,7 +27,7 @@ class SimulationScreen(
     assets: Assets
 ) : KtxScreen {
   private val background = scene2d.image(assets.sprites["background"])
-  private val music = assets.music["game"]
+  private val music = assets.music["simulation"]
   private val dinoYs = listOf(25f, 75f)
   private val carnivoreActors =
       codeCarnivores.mapIndexed { index, carnivore ->

@@ -92,6 +92,10 @@ class Assets(private val assetManager: AssetManager) {
                 Gdx.audio.newMusic("sounds/game.mp3".toInternalFile()).apply {
                   setOnCompletionListener { play() }
                 },
+            "simulation" to
+                Gdx.audio.newMusic("sounds/simulation.mp3".toInternalFile()).apply {
+                  setOnCompletionListener { play() }
+                },
             "victory" to
                 Gdx.audio.newMusic("sounds/victory.mp3".toInternalFile()).apply {
                   setOnCompletionListener { play() }
