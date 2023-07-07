@@ -57,7 +57,6 @@ class SimulationScreen(
       }
 
   private var gamesPlayed = 0
-  private var timeStart = System.currentTimeMillis()
 
   override fun show() {
     music.play()
@@ -79,6 +78,8 @@ class SimulationScreen(
       val winner = playGame()
       val winningActor = carnivoreActors[codeCarnivores.indexOf(winner)]
       winningActor.wonGame()
+    } else {
+      game.setScreen<VictoryScreen>()
     }
     stage.act(delta)
     stage.draw()

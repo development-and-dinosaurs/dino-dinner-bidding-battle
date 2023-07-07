@@ -1,15 +1,16 @@
 package uk.co.developmentanddinosaurs.games.dinner.screens
 
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
-import ktx.actors.onKeyDown
+import ktx.actors.centerPosition
+import ktx.actors.onClick
 import ktx.actors.then
 import ktx.app.KtxScreen
 import ktx.scene2d.image
 import ktx.scene2d.label
 import ktx.scene2d.scene2d
+import ktx.scene2d.textButton
 import uk.co.developmentanddinosaurs.games.dinner.CraftyCodeCarnivore
 import uk.co.developmentanddinosaurs.games.dinner.DinnerGame
 import uk.co.developmentanddinosaurs.games.dinner.assets.Assets
@@ -42,6 +43,22 @@ class GameScreen(
         x = meat.x + (meat.width / 2) - (this.width / 2)
         y = meat.y + (meat.height / 2) - (this.height / 2) - 50
       }
+  private val playButton =
+      scene2d.textButton("Play") {
+        centerPosition(Gdx.graphics.width.toFloat(), 0f)
+        y = 10f
+        onClick {
+          playRound()
+          this.isVisible = false
+        }
+      }
+  private val simulationButton =
+      scene2d.textButton("To Simulation") {
+        centerPosition(Gdx.graphics.width.toFloat(), 0f)
+        y = 10f
+        isVisible = false
+        onClick { game.setScreen<SimulationScreen>() }
+      }
   private val dinoYs = listOf(25f, 75f)
   private val carnivoreActors =
       codeCarnivores
@@ -72,7 +89,6 @@ class GameScreen(
             CarnivoreActor(carnivore, image, hat, scroll, label)
           }
           .toMutableList()
-  private var canPlayRound = true
 
   override fun show() {
     music.play()
@@ -80,13 +96,8 @@ class GameScreen(
     stage.addActor(meat)
     stage.addActor(meatLabel)
     carnivoreActors.forEach { it.addToStage(stage) }
-    stage.addActor(
-        Actor().let { actor ->
-          actor.onKeyDown { playRound() }
-          stage.setKeyboardFocus(actor)
-          actor
-        },
-    )
+    stage.addActor(playButton)
+    stage.addActor(simulationButton)
     codeCarnivores.forEach { it.initialise(codeCarnivores.size, mummyTrex.bringHomeTheBacon()) }
     Gdx.input.inputProcessor = stage
   }
@@ -106,7 +117,7 @@ class GameScreen(
 
   private fun playRound() {
     if (carnivoreActors.isEmpty()) {
-      game.setScreen<VictoryScreen>()
+      simulationButton.isVisible = true
       return
     }
     val bids = carnivoreActors.map { it.bid() }
