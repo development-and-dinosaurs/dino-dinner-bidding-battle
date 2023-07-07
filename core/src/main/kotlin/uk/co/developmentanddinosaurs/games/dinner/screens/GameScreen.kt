@@ -10,6 +10,7 @@ import ktx.app.KtxScreen
 import ktx.scene2d.image
 import ktx.scene2d.label
 import ktx.scene2d.scene2d
+import uk.co.developmentanddinosaurs.games.dinner.CraftyCodeCarnivore
 import uk.co.developmentanddinosaurs.games.dinner.DinnerGame
 import uk.co.developmentanddinosaurs.games.dinner.assets.Assets
 import uk.co.developmentanddinosaurs.games.dinner.carnivore.CarnivoreActor
@@ -26,7 +27,7 @@ class GameScreen(
     private val stage: Stage,
     private val game: DinnerGame,
     private val mummyTrex: MummyTrex,
-    carnivoreLoader: CarnivoreLoader,
+    private val codeCarnivores: List<CraftyCodeCarnivore>,
     assets: Assets,
 ) : KtxScreen {
   private val background = scene2d.image(assets.sprites["background"])
@@ -43,7 +44,6 @@ class GameScreen(
         y = meat.y + (meat.height / 2) - (this.height / 2) - 50
       }
   private val dinoYs = listOf(25f, 75f)
-  private val codeCarnivores = carnivoreLoader.loadCarnivores()
   private val carnivoreActors =
       codeCarnivores
           .mapIndexed { index, carnivore ->

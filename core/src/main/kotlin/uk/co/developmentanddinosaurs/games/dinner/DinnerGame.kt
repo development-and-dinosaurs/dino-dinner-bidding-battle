@@ -37,6 +37,7 @@ class DinnerGame : KtxGame<Screen>() {
 
   override fun create() {
     context.register {
+      bindSingleton<List<CraftyCodeCarnivore>>(CarnivoreLoader(File(Gdx.files.localStoragePath)).loadCarnivores())
       bindSingleton<Batch>(SpriteBatch())
       bindSingleton<Viewport>(ScreenViewport())
       bind { Stage(inject(), inject()) }
@@ -46,7 +47,6 @@ class DinnerGame : KtxGame<Screen>() {
       inject<Assets>().finishLoading()
       bindSingleton<Skin>(createSkin(inject()))
       Scene2DSkin.defaultSkin = context.inject<Skin>()
-      bindSingleton<CarnivoreLoader>(CarnivoreLoader(File(Gdx.files.localStoragePath)))
       bindSingleton(TitleScreen(inject(), inject(), inject()))
       bindSingleton(InstructionsScreen(inject(), inject(), inject()))
       bindSingleton(GameScreen(inject(), inject(), inject(), inject(), inject()))
