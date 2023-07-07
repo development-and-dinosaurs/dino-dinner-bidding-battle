@@ -23,12 +23,10 @@ class CarnivoreActor(
     private val hat: Image,
     private val scroll: Image,
     private val label: Label,
-    private val miniMeat: Image,
 ) : Actor() {
   private var bid by Delegates.notNull<Int>()
 
-  /** Whether the actor is currently active in the scene */
-  var isActive = true
+  var wins = 0
 
   /**
    * Add carnivore actors to the stage.
@@ -40,7 +38,6 @@ class CarnivoreActor(
     stage.addActor(hat)
     stage.addActor(scroll)
     stage.addActor(label)
-    stage.addActor(miniMeat)
   }
 
   /** Have all carnivore actors act */
@@ -49,7 +46,6 @@ class CarnivoreActor(
     hat.act(delta)
     scroll.act(delta)
     label.act(delta)
-    miniMeat.act(delta)
     super.act(delta)
   }
 
@@ -96,4 +92,9 @@ class CarnivoreActor(
             label.addAction(moveTo(image.x, -150f, 1f))
           }
           .then(delay(1f))
+
+  fun wonGame() {
+    wins += 1
+    this.label.setText(wins.toString())
+  }
 }

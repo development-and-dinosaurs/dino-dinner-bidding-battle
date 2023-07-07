@@ -45,8 +45,17 @@ class TitleScreen(
   private val playButton =
       scene2d.textButton("Play") {
         x = 50f
+        y = 250f
+        onClick {
+          println("Clicked play")
+          game.setScreen<GameScreen>()
+        }
+      }
+  private val simulationButton =
+      scene2d.textButton("Simulation") {
+        x = 50f
         y = 175f
-        onClick { game.setScreen<GameScreen>() }
+        onClick { game.setScreen<SimulationScreen>() }
       }
   private val instructionsButton =
       scene2d.textButton("Instructions") {
@@ -86,6 +95,7 @@ class TitleScreen(
     stage.addActor(title)
     stage.addActor(meat)
     stage.addActor(playButton)
+    stage.addActor(simulationButton)
     stage.addActor(instructionsButton)
     stage.addActor(quitButton)
     carnivores.forEach { stage.addActor(it) }

@@ -1,19 +1,20 @@
 package uk.co.developmentanddinosaurs.games.dinner.screens
 
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
-import ktx.actors.onKeyDown
+import ktx.actors.centerPosition
+import ktx.actors.onClick
 import ktx.actors.then
 import ktx.app.KtxScreen
 import ktx.scene2d.image
 import ktx.scene2d.label
 import ktx.scene2d.scene2d
+import ktx.scene2d.textButton
+import uk.co.developmentanddinosaurs.games.dinner.CraftyCodeCarnivore
 import uk.co.developmentanddinosaurs.games.dinner.DinnerGame
 import uk.co.developmentanddinosaurs.games.dinner.assets.Assets
 import uk.co.developmentanddinosaurs.games.dinner.carnivore.CarnivoreActor
-import uk.co.developmentanddinosaurs.games.dinner.carnivore.CarnivoreLoader
 import uk.co.developmentanddinosaurs.games.dinner.logic.MummyTrex
 
 /**
@@ -26,7 +27,7 @@ class GameScreen(
     private val stage: Stage,
     private val game: DinnerGame,
     private val mummyTrex: MummyTrex,
-    carnivoreLoader: CarnivoreLoader,
+    private val codeCarnivores: List<CraftyCodeCarnivore>,
     assets: Assets,
 ) : KtxScreen {
   private val background = scene2d.image(assets.sprites["background"])
@@ -42,8 +43,23 @@ class GameScreen(
         x = meat.x + (meat.width / 2) - (this.width / 2)
         y = meat.y + (meat.height / 2) - (this.height / 2) - 50
       }
+  private val playButton =
+      scene2d.textButton("Play") {
+        centerPosition(Gdx.graphics.width.toFloat(), 0f)
+        y = 10f
+        onClick {
+          playRound()
+          this.isVisible = false
+        }
+      }
+  private val simulationButton =
+      scene2d.textButton("To Simulation") {
+        centerPosition(Gdx.graphics.width.toFloat(), 0f)
+        y = 10f
+        isVisible = false
+        onClick { game.setScreen<SimulationScreen>() }
+      }
   private val dinoYs = listOf(25f, 75f)
-  private val codeCarnivores = carnivoreLoader.loadCarnivores()
   private val carnivoreActors =
       codeCarnivores
           .mapIndexed { index, carnivore ->
@@ -70,16 +86,9 @@ class GameScreen(
                   it.width = scroll.width
                   it.height = scroll.height
                 }
-            val miniMeat =
-                scene2d.image(assets.sprites["meat"]) {
-                  setSize(128f, 128f)
-                  it.x = image.x
-                  it.y = Gdx.graphics.height + it.height
-                }
-            CarnivoreActor(carnivore, image, hat, scroll, label, miniMeat)
+            CarnivoreActor(carnivore, image, hat, scroll, label)
           }
           .toMutableList()
-  private var canPlayRound = true
 
   override fun show() {
     music.play()
@@ -87,13 +96,8 @@ class GameScreen(
     stage.addActor(meat)
     stage.addActor(meatLabel)
     carnivoreActors.forEach { it.addToStage(stage) }
-    stage.addActor(
-        Actor().let { actor ->
-          actor.onKeyDown { playRound() }
-          stage.setKeyboardFocus(actor)
-          actor
-        },
-    )
+    stage.addActor(playButton)
+    stage.addActor(simulationButton)
     codeCarnivores.forEach { it.initialise(codeCarnivores.size, mummyTrex.bringHomeTheBacon()) }
     Gdx.input.inputProcessor = stage
   }
@@ -113,7 +117,7 @@ class GameScreen(
 
   private fun playRound() {
     if (carnivoreActors.isEmpty()) {
-      game.setScreen<VictoryScreen>()
+      simulationButton.isVisible = true
       return
     }
     val bids = carnivoreActors.map { it.bid() }
