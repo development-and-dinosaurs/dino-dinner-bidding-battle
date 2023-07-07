@@ -2,7 +2,6 @@ package uk.co.developmentanddinosaurs.games.dinner.screens
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input.Keys
-import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Label
@@ -10,24 +9,25 @@ import ktx.actors.centerPosition
 import ktx.actors.onClick
 import ktx.actors.onKeyDown
 import ktx.app.KtxScreen
-import ktx.assets.toInternalFile
 import ktx.scene2d.image
 import ktx.scene2d.label
 import ktx.scene2d.scene2d
 import ktx.scene2d.textButton
 import uk.co.developmentanddinosaurs.games.dinner.DinnerGame
+import uk.co.developmentanddinosaurs.games.dinner.assets.Assets
 
 /**
  * The instructions screen.
  *
  * The instructions screen is the screen that shows how to play the game.
  */
-class InstructionsScreen(private val stage: Stage, private val game: DinnerGame) : KtxScreen {
-  private val background = scene2d.image(Texture("sprites/background.jpg"))
-  private val music =
-      Gdx.audio.newMusic("sounds/instructions.mp3".toInternalFile()).apply {
-        setOnCompletionListener { play() }
-      }
+class InstructionsScreen(
+    private val stage: Stage,
+    private val game: DinnerGame,
+    assets: Assets,
+) : KtxScreen {
+  private val background = scene2d.image(assets.sprites["background"])
+  private val music = assets.music["instructions"]
   private val pageOneHeader = "Dino Dinner: Bidding Battle"
   private val pageOneInstructions =
       listOf(

@@ -1,7 +1,6 @@
 package uk.co.developmentanddinosaurs.games.dinner.screens
 
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.actions.Actions.moveBy
@@ -12,10 +11,10 @@ import ktx.actors.centerPosition
 import ktx.actors.repeatForever
 import ktx.actors.then
 import ktx.app.KtxScreen
-import ktx.assets.toInternalFile
 import ktx.scene2d.image
 import ktx.scene2d.scene2d
 import uk.co.developmentanddinosaurs.games.dinner.DinnerGame
+import uk.co.developmentanddinosaurs.games.dinner.assets.Assets
 import uk.co.developmentanddinosaurs.games.dinner.logic.MummyTrex
 
 /**
@@ -27,12 +26,10 @@ class VictoryScreen(
     private val stage: Stage,
     private val game: DinnerGame,
     private val mummyTrex: MummyTrex,
+    private val assets: Assets,
 ) : KtxScreen {
-  private val background = scene2d.image(Texture("sprites/background.jpg"))
-  private val music =
-      Gdx.audio.newMusic("sounds/victory.mp3".toInternalFile()).apply {
-        setOnCompletionListener { play() }
-      }
+  private val background = scene2d.image(assets.sprites["background"])
+  private val music = assets.music["victory"]
   private val meats = listOf(spawnMeat(0), spawnMeat(1), spawnMeat(2), spawnMeat(3), spawnMeat(4))
 
   override fun show() {
@@ -71,16 +68,15 @@ class VictoryScreen(
   }
 
   private fun getWinner(): Image {
-    return scene2d.image(
-        Texture("sprites/carnivores/carnivore_${mummyTrex.winner.colour().name.lowercase()}.png")) {
-          centerPosition(Gdx.graphics.width.toFloat(), 0f)
-          y = 100f
-          addAction(moveBy(0f, 100f, 0.5f).then(moveBy(0f, -100f, 0.5f)).repeatForever())
-        }
+    return scene2d.image(assets.sprites["carnivore_${mummyTrex.winner.colour()}"]) {
+      centerPosition(Gdx.graphics.width.toFloat(), 0f)
+      y = 100f
+      addAction(moveBy(0f, 100f, 0.5f).then(moveBy(0f, -100f, 0.5f)).repeatForever())
+    }
   }
 
   private fun getHat(winner: Image): Image {
-    return scene2d.image(Texture("sprites/hats/${mummyTrex.winner.hat().name.lowercase()}.png")) {
+    return scene2d.image(assets.sprites["hat_${mummyTrex.winner.hat()}"]) {
       it.x = winner.x
       it.y = winner.y + winner.height - 40
       addAction(moveBy(0f, 100f, 0.5f).then(moveBy(0f, -100f, 0.5f)).repeatForever())
@@ -89,7 +85,7 @@ class VictoryScreen(
 
   private fun spawnMeat(position: Int): Image {
     val image =
-        scene2d.image(Texture("sprites/meat.png")).apply {
+        scene2d.image(assets.sprites["meat"]).apply {
           setSize(128f, 128f)
           y =
               Gdx.graphics.height +

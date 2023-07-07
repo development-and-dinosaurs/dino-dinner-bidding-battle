@@ -2,18 +2,16 @@ package uk.co.developmentanddinosaurs.games.dinner
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Screen
+import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.utils.viewport.ScreenViewport
 import com.badlogic.gdx.utils.viewport.Viewport
 import java.io.File
 import ktx.app.KtxGame
-import ktx.assets.toInternalFile
-import ktx.freetype.generateFont
 import ktx.inject.Context
 import ktx.inject.register
 import ktx.scene2d.Scene2DSkin
@@ -21,6 +19,7 @@ import ktx.style.get
 import ktx.style.label
 import ktx.style.skin
 import ktx.style.textButton
+import uk.co.developmentanddinosaurs.games.dinner.assets.Assets
 import uk.co.developmentanddinosaurs.games.dinner.carnivore.CarnivoreLoader
 import uk.co.developmentanddinosaurs.games.dinner.logic.MummyTrex
 import uk.co.developmentanddinosaurs.games.dinner.screens.GameScreen
@@ -43,13 +42,15 @@ class DinnerGame : KtxGame<Screen>() {
       bind { Stage(inject(), inject()) }
       bindSingleton(this@DinnerGame)
       bindSingleton(MummyTrex())
-      bindSingleton<Skin>(createSkin())
+      bindSingleton(Assets(AssetManager()))
+      inject<Assets>().finishLoading()
+      bindSingleton<Skin>(createSkin(inject()))
       Scene2DSkin.defaultSkin = context.inject<Skin>()
       bindSingleton<CarnivoreLoader>(CarnivoreLoader(File(Gdx.files.localStoragePath)))
-      bindSingleton(TitleScreen(inject(), inject()))
-      bindSingleton(InstructionsScreen(inject(), inject()))
-      bindSingleton(GameScreen(inject(), inject(), inject(), inject()))
-      bindSingleton(VictoryScreen(inject(), inject(), inject()))
+      bindSingleton(TitleScreen(inject(), inject(), inject()))
+      bindSingleton(InstructionsScreen(inject(), inject(), inject()))
+      bindSingleton(GameScreen(inject(), inject(), inject(), inject(), inject()))
+      bindSingleton(VictoryScreen(inject(), inject(), inject(), inject()))
     }
     addScreen(context.inject<TitleScreen>())
     addScreen(context.inject<InstructionsScreen>())
@@ -58,31 +59,10 @@ class DinnerGame : KtxGame<Screen>() {
     setScreen<TitleScreen>()
   }
 
-  private fun createSkin(): Skin = skin { skin ->
-    add(
-        "defaultFont",
-        FreeTypeFontGenerator("fonts/Dinopia.otf".toInternalFile()).generateFont {
-          size = 72
-          borderWidth = 3f
-          borderColor = Color.BLACK
-        },
-    )
-    add(
-        "titleFont",
-        FreeTypeFontGenerator("fonts/Dinopia.otf".toInternalFile()).generateFont {
-          size = 102
-          borderWidth = 3f
-          borderColor = Color.BLACK
-        },
-    )
-    add(
-        "scrollFont",
-        FreeTypeFontGenerator("fonts/Dinopia.otf".toInternalFile()).generateFont {
-          size = 36
-          borderWidth = 3f
-          borderColor = Color.BLACK
-        },
-    )
+  private fun createSkin(assets: Assets): Skin = skin { skin ->
+    add("defaultFont", assets.fonts["defaultFont"])
+    add("titleFont", assets.fonts["titleFont"])
+    add("scrollFont", assets.fonts["scrollFont"])
     label { font = skin["defaultFont"] }
     label("title") { font = skin["titleFont"] }
     label("scroll") { font = skin["scrollFont"] }
