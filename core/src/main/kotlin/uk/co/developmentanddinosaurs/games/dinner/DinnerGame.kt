@@ -24,6 +24,7 @@ import uk.co.developmentanddinosaurs.games.dinner.carnivore.CarnivoreLoader
 import uk.co.developmentanddinosaurs.games.dinner.logic.MummyTrex
 import uk.co.developmentanddinosaurs.games.dinner.screens.GameScreen
 import uk.co.developmentanddinosaurs.games.dinner.screens.InstructionsScreen
+import uk.co.developmentanddinosaurs.games.dinner.screens.SimulationScreen
 import uk.co.developmentanddinosaurs.games.dinner.screens.TitleScreen
 import uk.co.developmentanddinosaurs.games.dinner.screens.VictoryScreen
 
@@ -37,7 +38,8 @@ class DinnerGame : KtxGame<Screen>() {
 
   override fun create() {
     context.register {
-      bindSingleton<List<CraftyCodeCarnivore>>(CarnivoreLoader(File(Gdx.files.localStoragePath)).loadCarnivores())
+      bindSingleton<List<CraftyCodeCarnivore>>(
+          CarnivoreLoader(File(Gdx.files.localStoragePath)).loadCarnivores())
       bindSingleton<Batch>(SpriteBatch())
       bindSingleton<Viewport>(ScreenViewport())
       bind { Stage(inject(), inject()) }
@@ -51,11 +53,13 @@ class DinnerGame : KtxGame<Screen>() {
       bindSingleton(InstructionsScreen(inject(), inject(), inject()))
       bindSingleton(GameScreen(inject(), inject(), inject(), inject(), inject()))
       bindSingleton(VictoryScreen(inject(), inject(), inject(), inject()))
+      bindSingleton(SimulationScreen(inject(), inject(), inject(), inject(), inject()))
     }
     addScreen(context.inject<TitleScreen>())
     addScreen(context.inject<InstructionsScreen>())
     addScreen(context.inject<GameScreen>())
     addScreen(context.inject<VictoryScreen>())
+    addScreen(context.inject<SimulationScreen>())
     setScreen<TitleScreen>()
   }
 

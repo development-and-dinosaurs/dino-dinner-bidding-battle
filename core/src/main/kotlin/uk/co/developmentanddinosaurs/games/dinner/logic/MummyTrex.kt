@@ -18,6 +18,20 @@ class MummyTrex {
   lateinit var winner: CraftyCodeCarnivore
 
   /**
+   * Resets Mummy T-Rex so she can play the game again.
+   *
+   * Resets the amount of meat and the winning bid to be the initial values. Does not do anything
+   * with the current winning carnivore, for two reasons. First, there isn't a good default value
+   * other than null, which I'd rather not make it nullable. Second, it doesn't really matter as the
+   * first round we play after a reset will set the winner to the current winner from that first
+   * round.
+   */
+  fun reset() {
+    this.amountOfMeat = Random.nextInt(1000..2000)
+    this.winningBid = 0
+  }
+
+  /**
    * Returns the amount of meat that is left to be bid on.
    *
    * @return the amount of meat remaining to be bid on
