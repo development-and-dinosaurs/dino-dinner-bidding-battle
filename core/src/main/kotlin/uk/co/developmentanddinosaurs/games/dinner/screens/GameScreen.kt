@@ -120,10 +120,11 @@ class GameScreen(
       simulationButton.isVisible = true
       return
     }
-    val bids = carnivoreActors.map { it.bid() }
+    val bids = carnivoreActors.groupBy { it.bid() }
     val showActions = carnivoreActors.map { it.showBid() }
-    val winningBid = bids.min()
-    val winner = carnivoreActors.removeAt(bids.indexOf(winningBid))
+    val winningBid = bids.keys.min()
+    val winner = bids[winningBid]!!.random()
+    carnivoreActors.remove(winner)
     val hideActions = carnivoreActors.map { it.hideBid() }
     stage.addAction(
         Actions.parallel(*showActions.toTypedArray())
