@@ -120,10 +120,15 @@ class GameScreen(
       simulationButton.isVisible = true
       return
     }
-    val bids = carnivoreActors.groupBy { it.bid() }
-    val showActions = carnivoreActors.map { it.showBid() }
-    val winningBid = bids.keys.min()
-    val winner = bids[winningBid]!!.random()
+    val originalBids = carnivoreActors.groupBy { it.bid() }
+    val naughtyBids = originalBids.filter { it.key > mummyTrex.bringHomeTheBacon() }
+    val goodBids = originalBids.filter { it.key <= mummyTrex.bringHomeTheBacon() }
+    val showActions =
+        naughtyBids.values.flatten().map { it.showNaughtyBid() } +
+            goodBids.values.flatten().map { it.showBid() }
+    val winningBid = originalBids.keys.min()
+    val winner = originalBids[winningBid]!!.random()
+    val actualWinningBid = if (winningBid > mummyTrex.bringHomeTheBacon()) 0 else winningBid
     carnivoreActors.remove(winner)
     val hideActions = carnivoreActors.map { it.hideBid() }
     stage.addAction(
@@ -133,8 +138,8 @@ class GameScreen(
             .then(Actions.run { meatLabel.setText("${mummyTrex.bringHomeTheBacon()}\nkg") })
             .then(Actions.run { playRound() }),
     )
-    carnivoreActors.forEach { it.update(winningBid) }
-    mummyTrex.updateMeat(winningBid)
-    mummyTrex.evaluate(winner.codeCarnivore, winningBid)
+    carnivoreActors.forEach { it.update(actualWinningBid) }
+    mummyTrex.updateMeat(actualWinningBid)
+    mummyTrex.evaluate(winner.codeCarnivore, actualWinningBid)
   }
 }

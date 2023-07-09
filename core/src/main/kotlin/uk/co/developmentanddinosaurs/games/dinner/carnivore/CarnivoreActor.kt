@@ -1,5 +1,6 @@
 package uk.co.developmentanddinosaurs.games.dinner.carnivore
 
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.scenes.scene2d.Action
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Stage
@@ -76,6 +77,21 @@ class CarnivoreActor(
   fun showBid(): Action =
       Actions.run {
             label.setText(bid.toString())
+            label.color = Color.WHITE
+            scroll.addAction(moveTo(image.x, image.y, 1f))
+            label.addAction(moveTo(image.x, image.y, 1f))
+          }
+          .then(delay(1f))
+
+  /**
+   * Animate the bid actors to show the carnivore bid
+   *
+   * @return the action to animate the bid actors
+   */
+  fun showNaughtyBid(): Action =
+      Actions.run {
+            label.setText(bid.toString())
+            label.color = Color.RED
             scroll.addAction(moveTo(image.x, image.y, 1f))
             label.addAction(moveTo(image.x, image.y, 1f))
           }

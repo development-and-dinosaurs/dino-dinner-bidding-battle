@@ -93,12 +93,18 @@ class SimulationScreen(
   private fun playGame(): CraftyCodeCarnivore {
     val carnivores = codeCarnivores.toMutableList()
     mummyTrex.reset()
-    val meat = mummyTrex.bringHomeTheBacon()
+    var meat = mummyTrex.bringHomeTheBacon()
     codeCarnivores.forEach { it.initialise(codeCarnivores.size, meat) }
     while (carnivores.isNotEmpty()) {
       val result = playRound(carnivores)
-      mummyTrex.evaluate(result.winningCarnivore, result.winningBid)
-      mummyTrex.updateMeat(result.winningBid)
+      if (result.winningBid > meat) {
+        mummyTrex.evaluate(result.winningCarnivore, 0)
+        mummyTrex.updateMeat(0)
+      } else {
+        meat -= result.winningBid
+        mummyTrex.evaluate(result.winningCarnivore, result.winningBid)
+        mummyTrex.updateMeat(result.winningBid)
+      }
       carnivores.remove(result.winningCarnivore)
       carnivores.forEach { it.update(result.winningBid) }
     }
