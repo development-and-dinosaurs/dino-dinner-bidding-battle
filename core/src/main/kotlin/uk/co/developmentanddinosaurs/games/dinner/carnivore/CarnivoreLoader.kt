@@ -35,27 +35,27 @@ class CarnivoreLoader(private val directory: File) {
   fun loadCarnivores(): List<CraftyCodeCarnivore> {
     val carnivoreJars =
         File(directory, "carnivores").listFiles(FileFilter { it.extension == "jar" })
-    if (carnivoreJars == null || carnivoreJars.isEmpty()) {
-      return fairCarnivores
-    }
-    return carnivoreJars.map { jar ->
-      val urls = arrayOf(URL("jar:file:${jar.path}!/"))
-      val classLoader = URLClassLoader.newInstance(urls)
-      JarFile(jar)
-          .entries()
-          .asSequence()
-          .filter { !it.isDirectory && it.name.endsWith(".class") }
-          .map { entry ->
-            val className = entry.name.substringBefore(".class").replace("/", ".")
-            classLoader.loadClass(className)
-          }
-          .filter { clazz -> clazz.interfaces.contains(CraftyCodeCarnivore::class.java) }
-          .map { clazz ->
-            val declaredConstructor = clazz.getDeclaredConstructor()
-            val newInstance = declaredConstructor.newInstance()
-            newInstance as CraftyCodeCarnivore
-          }
-          .first()
-    }
+            ?: emptyArray()
+    val carnivores =
+        carnivoreJars.map { jar ->
+          val urls = arrayOf(URL("jar:file:${jar.path}!/"))
+          val classLoader = URLClassLoader.newInstance(urls)
+          JarFile(jar)
+              .entries()
+              .asSequence()
+              .filter { !it.isDirectory && it.name.endsWith(".class") }
+              .map { entry ->
+                val className = entry.name.substringBefore(".class").replace("/", ".")
+                classLoader.loadClass(className)
+              }
+              .filter { clazz -> clazz.interfaces.contains(CraftyCodeCarnivore::class.java) }
+              .map { clazz ->
+                val declaredConstructor = clazz.getDeclaredConstructor()
+                val newInstance = declaredConstructor.newInstance()
+                newInstance as CraftyCodeCarnivore
+              }
+              .first()
+        }
+    return if (carnivores.size > 6) carnivores else (carnivores + fairCarnivores).take(6)
   }
 }
