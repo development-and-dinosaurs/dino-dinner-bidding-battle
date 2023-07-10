@@ -3,7 +3,7 @@ plugins {
 }
 
 group = "uk.co.developmentanddinosaurs"
-version = "0.0.1"
+version = "0.0.2"
 
 nexusPublishing {
     repositories {

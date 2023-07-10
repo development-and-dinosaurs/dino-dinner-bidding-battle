@@ -15,3 +15,13 @@ tasks.jar {
   }
   from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
 }
+
+publishing {
+  publications {
+    val mavenPublication = getAt("mavenJava") as MavenPublication
+    mavenPublication.pom {
+      name.set("Dino Dinner: Bidding Battle Launcher")
+      description.set("Launch Dino Dinner: Bidding Battle as a jar on the desktop")
+    }
+  }
+}

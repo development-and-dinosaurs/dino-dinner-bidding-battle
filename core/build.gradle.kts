@@ -14,3 +14,13 @@ dependencies {
   implementation(libs.kotlinx.coroutines)
   implementation(project(":dino-dinner-bidding-battle-crafty-code-carnivore"))
 }
+
+publishing {
+  publications {
+    val mavenPublication = getAt("mavenJava") as MavenPublication
+    mavenPublication.pom {
+      name.set("Dino Dinner: Bidding Battle Core")
+      description.set("Core game logic for Dino Dinner: Bidding Battle")
+    }
+  }
+}
