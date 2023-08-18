@@ -6,8 +6,10 @@ import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import com.badlogic.gdx.utils.viewport.ScreenViewport
 import com.badlogic.gdx.utils.viewport.Viewport
 import java.io.File
@@ -15,15 +17,19 @@ import ktx.app.KtxGame
 import ktx.inject.Context
 import ktx.inject.register
 import ktx.scene2d.Scene2DSkin
+import ktx.style.checkBox
 import ktx.style.get
 import ktx.style.label
 import ktx.style.skin
+import ktx.style.slider
 import ktx.style.textButton
 import uk.co.developmentanddinosaurs.games.dinner.assets.Assets
 import uk.co.developmentanddinosaurs.games.dinner.carnivore.CarnivoreLoader
 import uk.co.developmentanddinosaurs.games.dinner.logic.MummyTrex
+import uk.co.developmentanddinosaurs.games.dinner.preferences.GamePreferences
 import uk.co.developmentanddinosaurs.games.dinner.screens.GameScreen
 import uk.co.developmentanddinosaurs.games.dinner.screens.InstructionsScreen
+import uk.co.developmentanddinosaurs.games.dinner.screens.PreferencesScreen
 import uk.co.developmentanddinosaurs.games.dinner.screens.SimulationScreen
 import uk.co.developmentanddinosaurs.games.dinner.screens.TitleScreen
 import uk.co.developmentanddinosaurs.games.dinner.screens.VictoryScreen
@@ -42,6 +48,7 @@ class DinnerGame : KtxGame<Screen>() {
           CarnivoreLoader(File(Gdx.files.localStoragePath)).loadCarnivores())
       bindSingleton<Batch>(SpriteBatch())
       bindSingleton<Viewport>(ScreenViewport())
+      bindSingleton { GamePreferences() }
       bind { Stage(inject(), inject()) }
       bindSingleton(this@DinnerGame)
       bindSingleton(MummyTrex())
@@ -51,16 +58,18 @@ class DinnerGame : KtxGame<Screen>() {
       Scene2DSkin.defaultSkin = context.inject<Skin>()
       bindSingleton(TitleScreen(inject(), inject(), inject()))
       bindSingleton(InstructionsScreen(inject(), inject(), inject()))
+      bindSingleton(PreferencesScreen(inject(), inject(), inject(), inject(), inject()))
       bindSingleton(GameScreen(inject(), inject(), inject(), inject(), inject()))
       bindSingleton(VictoryScreen(inject(), inject(), inject(), inject()))
       bindSingleton(SimulationScreen(inject(), inject(), inject(), inject(), inject()))
     }
     addScreen(context.inject<TitleScreen>())
     addScreen(context.inject<InstructionsScreen>())
+    addScreen(context.inject<PreferencesScreen>())
     addScreen(context.inject<GameScreen>())
     addScreen(context.inject<VictoryScreen>())
     addScreen(context.inject<SimulationScreen>())
-    setScreen<TitleScreen>()
+    setScreen<PreferencesScreen>()
   }
 
   private fun createSkin(assets: Assets): Skin = skin { skin ->
@@ -75,7 +84,20 @@ class DinnerGame : KtxGame<Screen>() {
       overFontColor = Color.ORANGE
       downFontColor = Color.CORAL
     }
+      val textureAtlas = TextureAtlas("ui/uiskin.atlas")
+    slider("default-horizontal") {
+      background = TextureRegionDrawable(textureAtlas.findRegion("scrollbar-android"))
+      knobBefore = TextureRegionDrawable(textureAtlas.findRegion("scrollbar-android-knob"))
+      knob=  TextureRegionDrawable(textureAtlas.findRegion("slider-bar-knob"))
+    }
+    checkBox("default") {
+      checkboxOn = TextureRegionDrawable(textureAtlas.findRegion("check-box"))
+      checkboxOff = TextureRegionDrawable(textureAtlas.findRegion("check-box-off"))
+      font = skin["defaultFont"]
+    }
   }
+
+  private fun preferencesSkin(): Skin = skin(TextureAtlas("ui/uiskin.atlas"))
 
   override fun dispose() {
     context.remove<DinnerGame>()
